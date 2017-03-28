@@ -7,11 +7,9 @@ namespace Phyah.Channel
 {
     public class ChannelEvent
     {
-        private readonly IExecutable _Executable;
-        public IExecutable Executable { get => _Executable; }
-        public ChannelEvent(IExecutable executable)
+        
+        public ChannelEvent()
         {
-            _Executable = executable;
         }
 
     }
