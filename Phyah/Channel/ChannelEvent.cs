@@ -7,9 +7,10 @@ namespace Phyah.Channel
 {
     public class ChannelEvent
     {
-        
-        public ChannelEvent()
+        public readonly string SourceName {get;set;}
+        public ChannelEvent(string sourceName)
         {
+            SourceName=sourceName;
         }
 
     }
