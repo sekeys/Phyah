@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Phyah.Channel
 {
-    public class ChannelReceptor
+    public abstract class ChannelReceptor
     {
+        public abstract void Accept(ChannelEvent e);
     }
 }
