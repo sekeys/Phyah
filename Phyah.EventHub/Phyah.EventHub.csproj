@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Phyah.Chain\Phyah.Chain.csproj" />
+    <ProjectReference Include="..\Phyah\Phyah.csproj" />
+  </ItemGroup>
+
+</Project>

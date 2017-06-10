@@ -18,7 +18,7 @@ namespace Phyah
             {
                 if (!UseStrict) { field = field.ToLower(); }
                 object obj = null;
-                Dict.TryGetValue(field, out obj); return field;
+                Dict.TryGetValue(field, out obj); return obj;
             }
             set => Dict.TryAdd(UseStrict ? field : field.ToLower(), value);
         }

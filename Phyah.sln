@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phyah", "Phyah\Phyah.csproj", "{08EF1064-CE04-441B-88C8-21988ACDDB10}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phyah.Web.Test", "Phyah.Web.Test\Phyah.Web.Test.csproj", "{C0504FBD-E0FF-4238-89DF-62BCFCFB8BF6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{D4EEBD7C-8033-4B58-9533-0345120374D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phyah", "Phyah\Phyah.csproj", "{37151CEF-8CF0-4349-8902-556AC1F5D269}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phyah.Chain", "Phyah.Chain\Phyah.Chain.csproj", "{EE86592D-E6D4-40A1-8105-B1D2A161D7D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phyah.EventHub", "Phyah.EventHub\Phyah.EventHub.csproj", "{B6D82F9F-128E-4A92-8129-DBC8852D3C7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,19 +17,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{08EF1064-CE04-441B-88C8-21988ACDDB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08EF1064-CE04-441B-88C8-21988ACDDB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08EF1064-CE04-441B-88C8-21988ACDDB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08EF1064-CE04-441B-88C8-21988ACDDB10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0504FBD-E0FF-4238-89DF-62BCFCFB8BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0504FBD-E0FF-4238-89DF-62BCFCFB8BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0504FBD-E0FF-4238-89DF-62BCFCFB8BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0504FBD-E0FF-4238-89DF-62BCFCFB8BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37151CEF-8CF0-4349-8902-556AC1F5D269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37151CEF-8CF0-4349-8902-556AC1F5D269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37151CEF-8CF0-4349-8902-556AC1F5D269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37151CEF-8CF0-4349-8902-556AC1F5D269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE86592D-E6D4-40A1-8105-B1D2A161D7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE86592D-E6D4-40A1-8105-B1D2A161D7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE86592D-E6D4-40A1-8105-B1D2A161D7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE86592D-E6D4-40A1-8105-B1D2A161D7D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D82F9F-128E-4A92-8129-DBC8852D3C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D82F9F-128E-4A92-8129-DBC8852D3C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D82F9F-128E-4A92-8129-DBC8852D3C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D82F9F-128E-4A92-8129-DBC8852D3C7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C0504FBD-E0FF-4238-89DF-62BCFCFB8BF6} = {D4EEBD7C-8033-4B58-9533-0345120374D7}
 	EndGlobalSection
 EndGlobal
