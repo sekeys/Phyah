@@ -162,8 +162,7 @@ namespace Phyah.Concurrency
         }
         public override void Wait()
         {
-            var executor = DefaultExecutor;
-            executor.ShutdownGracefullyAsync(TimeSpan.Zero, TimeSpan.Zero).Wait();
+            DefaultExecutor.ShutdownGracefullyAsync(TimeSpan.Zero, TimeSpan.Zero).Wait();
             TerminationCompletionSource.Task.Wait();
             //AccessorContext.DefaultContext.Set<IExecutor>(STATICPIPELINEDEFAULTEXECUTOR, null);
         }

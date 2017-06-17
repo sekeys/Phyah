@@ -7,11 +7,11 @@ namespace Phyah.TypeContainer
     using System.Text;
     public static class TypeContainerExtends
     {
-        public static T Fetch<T>(this ITypeContainer container)
+        public static T Construct<T>(this ITypeContainer container)
         {
             return Constructor.Construct<T>();
         }
-        public static object Fetch(this ITypeContainer container,Type baseType)
+        public static object Construct(this ITypeContainer container,Type baseType)
         {
             return Constructor.Construct(baseType);
         }

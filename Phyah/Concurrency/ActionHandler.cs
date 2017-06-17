@@ -18,4 +18,16 @@ namespace Phyah.Concurrency
             Action.Invoke();
         }
     }
+    public class ActionHandler<T> : IHandler<T>
+    {
+        readonly Action<T> Action;
+        public ActionHandler(Action<T> action)
+        {
+            this.Action = action;
+        }
+        public void Handle(T value)
+        {
+             Action.Invoke(value);
+        }
+    }
 }

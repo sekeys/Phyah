@@ -20,7 +20,7 @@ namespace Phyah.Concurrency
 
         IPipeline AddBefore(string beForename,string name, IHandler value);
 
-        IPipeline AddLast(IExecutorGroup group,string beforeName, string name, IHandler value);
+        //IPipeline AddLast(IExecutorGroup group,string beforeName, string name, IHandler value);
 
 
         IPipeline AddAfter(string beForename, string name, IHandler value);

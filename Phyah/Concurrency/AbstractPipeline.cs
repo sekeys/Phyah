@@ -277,7 +277,6 @@ namespace Phyah.Concurrency
         public IPipeline AddFirst(IExecutorGroup group, params IHandler[] handlers)
         {
             Require.NotNull(handlers);
-
             for (int i = handlers.Length - 1; i >= 0; i--)
             {
                 var h = handlers[i];
@@ -300,11 +299,7 @@ namespace Phyah.Concurrency
             }
             return this;
         }
-
-        public IPipeline AddLast(IExecutorGroup group, string beforeName, string name, IHandler handler)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public IPipeline AddLast(params IHandler[] handlers) => AddLast(null, handlers);
 

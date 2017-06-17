@@ -50,7 +50,7 @@ namespace Phyah.EventHub
             }
             else
             {
-                IQueue<IReceptor> queue = new StoreQueue<IReceptor>();
+                IQueue<IReceptor> queue = new PriorityQueue<IReceptor>();
                 queue.Enqueue(receptor);
                 Dictionary.TryAdd(name, queue);
             }
@@ -64,6 +64,36 @@ namespace Phyah.EventHub
                 name = name.Substring(0, name.Length - 8);
             }
             Store(name, receptor);
+        }
+
+        public void Unstore(string name)
+        {
+            if (Dictionary.ContainsKey(name))
+            {
+                IQueue<IReceptor> iq;
+                Dictionary.TryRemove(name,out iq);
+            }
+        }
+
+        public void Unstore(string name, IReceptor receptor)
+        {
+            if (Dictionary.ContainsKey(name))
+            {
+                IQueue<IReceptor> iq;
+                Dictionary.TryGetValue(name,out iq);
+                if (iq == null)
+                {
+                    return;
+                }
+                var iqclone = iq.Clone();
+                var it = iqclone.Dequeue();
+                do
+                {
+                    iqclone.Enqueue(it);
+                    it = iqclone.Dequeue();
+                }
+                while (iqclone.Count > 0);
+            }
         }
     }
 }

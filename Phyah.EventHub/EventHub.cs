@@ -12,33 +12,35 @@ namespace Phyah.EventHub
 
     public abstract class EventHub : IEventHub
     {
-        protected readonly IExecutor Executor;
+        protected readonly IExecutor ScheduleExecutor;
+        protected readonly IExecutor WorkExecutor;
         protected readonly IReceptorStore Stores;
         public EventHub(IExecutor executor, IReceptorStore store)
         {
-            Executor = executor;
+            ScheduleExecutor = new IndependentThreadExecutor("Schedule Executor", TimeSpan.Zero);
+            WorkExecutor = executor;
             Stores = store;
         }
 
-        public void Broadcast(string eventName, IEvent evnt)
+        public virtual void Broadcast(string eventName, IEvent evnt)
         {
-            Executor.Schedule(new FinderOfReceptor(evnt, eventName, Stores, this), TimeSpan.Zero);
+            ScheduleExecutor.Schedule(new FinderOfReceptor(evnt, eventName, Stores, this), TimeSpan.Zero);
         }
 
-        public void Broadcast<T>(string eventName, IEvent evnt) =>
-            Executor.Schedule(new FinderOfReceptor<T>(evnt, eventName, Stores, this), TimeSpan.Zero);
+        public virtual void Broadcast<T>(string eventName, IEvent evnt) =>
+            ScheduleExecutor.Schedule(new FinderOfReceptor<T>(evnt, eventName, Stores, this), TimeSpan.Zero);
 
-        public void Broadcast<T>(IEvent evnt) where T : IReceptor => Broadcast(typeof(T), evnt);
+        public virtual void Broadcast<T>(IEvent evnt) where T : IReceptor => Broadcast(typeof(T), evnt);
 
-        public void Broadcast(Type type, IEvent evnt)
+        public virtual void Broadcast(Type type, IEvent evnt)
         {
-            Executor.Schedule(new FinderOfReceptorByType(evnt, Stores, this, type), TimeSpan.Zero);
+            ScheduleExecutor.Schedule(new FinderOfReceptorByType(evnt, Stores, this, type), TimeSpan.Zero);
         }
 
-        public Task BroadcastAsync(string eventName, IEvent evnt)
+        public virtual Task BroadcastAsync(string eventName, IEvent evnt)
         {
             return
-            Executor.ScheduleAsync(
+            ScheduleExecutor.ScheduleAsync(
                 () =>
                 {
                     foreach (var item in Stores.Match(eventName))
@@ -48,10 +50,10 @@ namespace Phyah.EventHub
                 }, TimeSpan.Zero);
         }
 
-        public Task BroadcastAsync(Type type, IEvent evnt)
+        public virtual Task BroadcastAsync(Type type, IEvent evnt)
         {
 
-            return Executor.ScheduleAsync(
+            return ScheduleExecutor.ScheduleAsync(
                 () =>
                 {
                     var evntName = type.Name;
@@ -67,10 +69,10 @@ namespace Phyah.EventHub
                 }, TimeSpan.Zero);
         }
 
-        public Task BroadcastAsync<T>(IEvent evnt)
+        public virtual Task BroadcastAsync<T>(IEvent evnt)
         {
 
-            return Executor.ScheduleAsync(
+            return ScheduleExecutor.ScheduleAsync(
                 () =>
                 {
                     var evntName = nameof(T);
@@ -85,8 +87,8 @@ namespace Phyah.EventHub
                     }
                 }, TimeSpan.Zero);
         }
-         
-        public void Subject(IReceptor receptor)
+
+        public virtual void Subject(IReceptor receptor)
         {
             var name = nameof(receptor);
             if (name.IndexOf("Receptor") > 0)
@@ -96,12 +98,12 @@ namespace Phyah.EventHub
             Subject(name, receptor);
         }
 
-        public void Subject<T>() where T : IReceptor
+        public virtual void Subject<T>() where T : IReceptor
         {
             Subject(Activator.CreateInstance<T>());
         }
 
-        public void Subject(string eventName, IReceptor receptor)
+        public virtual void Subject(string eventName, IReceptor receptor)
         {
             Stores.Store(eventName, receptor);
         }
@@ -138,7 +140,7 @@ namespace Phyah.EventHub
             {
                 foreach (var item in Stores.Match(EventName))
                 {
-                    await Hub.Executor.Schedule(new EventTrigger(Event, item), TimeSpan.Zero);
+                    await Hub.WorkExecutor.Schedule(new EventTrigger(Event, item), TimeSpan.Zero);
                 }
             }
         }
@@ -167,7 +169,7 @@ namespace Phyah.EventHub
                 foreach (var item in Stores.Match(EventName))
                 {
                     if (BaseType.IsAssignableFrom(item.GetType()))
-                        await Hub.Executor.Schedule(new EventTrigger(Event, item), TimeSpan.Zero);
+                        await Hub.WorkExecutor.Schedule(new EventTrigger(Event, item), TimeSpan.Zero);
                 }
             }
         }
@@ -189,7 +191,7 @@ namespace Phyah.EventHub
                 foreach (var item in Stores.Match(EventName))
                 {
                     if (item is T)
-                        await Hub.Executor.Schedule(new EventTrigger(Event, item), TimeSpan.Zero);
+                        await Hub.WorkExecutor.Schedule(new EventTrigger(Event, item), TimeSpan.Zero);
                 }
             }
         }

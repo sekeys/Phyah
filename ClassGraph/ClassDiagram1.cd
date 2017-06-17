@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Phyah.EventStore.Attributes.SynchronizeAttribute">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>SynchronizeAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Phyah.EventStore.Attributes.FilterAttribute">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Phyah.EventStore.Attributes.AuthenticationAttribute">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthenticationAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Phyah.EventStore.Attributes.SynchronizeTypes">
+    <Position X="5.75" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIACAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Synchronize.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
