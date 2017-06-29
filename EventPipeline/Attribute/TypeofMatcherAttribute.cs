@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Phyah.EventPipeline.Attribute
 {
-   public class TypeofMatcherAttribute:System.Attribute
+   public class TypeofPipelineAttribute:System.Attribute
     {
-        public readonly Type MatcherType;
-        public TypeofMatcherAttribute( Type matcherType)
+        public readonly Type PipelineType;
+        public TypeofPipelineAttribute( Type pipelinetype)
         {
-            this.MatcherType = matcherType;
+            this.PipelineType = pipelinetype;
         }
     }
 }

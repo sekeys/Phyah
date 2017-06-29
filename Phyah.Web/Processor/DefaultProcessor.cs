@@ -14,14 +14,43 @@ namespace Phyah.Web
     using Phyah.Web.Router;
     using Microsoft.AspNetCore.Http;
     using Phyah.Concurrency;
+    using Phyah.Web.Attributes;
+    using Phyah.Authentication;
+    using System.Linq;
 
     public class DefaultProcessor : Processor
     {
         private IRouter Router;
         IPath path => AccessorContext.DefaultContext.Get<IPath>();
-        public  override void Process()
+        static Type TaskType => typeof(Task);
+        private void InvokeMethod(MethodInfo rest,object invoker,object[] args)
         {
-            
+            var attributes = rest.GetCustomAttributes().Where(m => m is IAuthentication) as IEnumerable<IAuthentication>;
+            if (attributes != null)
+            {
+                foreach (var attribute in attributes)
+                {
+                    attribute.Authentic();
+                }
+            }
+            if (rest != null)
+            {
+                if (rest.ReturnType == TaskType)
+                {
+                    var task = rest.Invoke(invoker, args) as Task;
+                    if (task != null)
+                    {
+                        task.Wait();
+                    }
+                }
+                else
+                {
+                    rest.Invoke(invoker, args);
+                }
+            }
+        }
+        public override void Process()
+        {
             try
             {
                 Router = RouterManager.Manager.Routing(null);
@@ -29,19 +58,43 @@ namespace Phyah.Web
                 {
                     throw new NotFoundException("未找到资源");
                 }
-
                 IBehavior behavior = null;
+                TypeInfo type = null;
                 while ((behavior = Router.Next(path)) != null)
                 {
-                   
-                    Invoke(behavior);
+                    type = behavior.GetType().GetTypeInfo();
+                    RouterOnMethodAttribute routerOnMethodAttr = type.GetCustomAttribute<RouterOnMethodAttribute>();
+                    if (path.Current.Next != null && routerOnMethodAttr != null)
+                    {
+                        var rest = type.GetMethod(routerOnMethodAttr.Method, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod);
+                        if (rest == null)
+                        {
+                            throw new StatusException($"{nameof(behavior)}内部未实现RouteOnMethod接口", 404);
+                        }
+                        string raw = rest.Invoke(behavior, new object[] { path }) as string;
+                        if (string.IsNullOrWhiteSpace(raw))
+                        {
+                            break;
+                            //throw new StatusException($"{nameof(behavior)}内部未制定具体路由", 404);
+                        }
+                        rest = type.GetMethod(raw, BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod);
+                        if (rest == null)
+                        {
+                            throw new StatusException("未找相关的实现方法", 404);
+                        }
+                        InvokeMethod(rest,behavior,null);
+                        break;
+                    }
+                    else
+                    {
+                        Invoke(behavior);
+                    }
                 }
                 //throw new Exception("1");
             }
             catch (Exception ex)
             {
                 //Assert.E(ex);
-                
                 throw ex;
             }
 

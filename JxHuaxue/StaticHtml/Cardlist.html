@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="" />
+
+    <title>华学旅游</title>
+    <link href="/css/behind/bootstrap.css" rel="stylesheet" />
+    <link href="/css/behind/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+
+        .main-menu {
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+            .main-menu li.active > a {
+                color: #ffffff;
+            }
+
+            .main-menu a {
+                color: #979898;
+                text-decoration: none;
+                display: block;
+                padding: 13px 5px;
+                border-bottom: 1px solid #313437;
+            }
+
+                .main-menu a:hover {
+                    color: #ffffff;
+                }
+
+            .main-menu li.has-sub > a:before {
+                position: relative;
+                display: inline-block;
+                font-family: 'FontAwesome';
+                content: '\f107';
+                float: right;
+                color: #6d747a;
+                margin-left: 10px;
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+                -webkit-transition: all 150ms ease-in-out;
+                -moz-transition: all 150ms ease-in-out;
+                -o-transition: all 150ms ease-in-out;
+                transition: all 150ms ease-in-out;
+            }
+    </style>
+    <link href="/css/behind/side.css" rel="stylesheet" />
+</head>
+<body style="">
+
+    <!--<script src="/js/Zonic.js"></script>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery.ui.widget.js"></script>
+    <script src="/js/jquery.iframe-transport.js"></script>
+    <script src="/js/jquery.fileupload.js"></script>-->
+
+    <div class="panel-body panel-border" style="background-color:white;min-height:430px;">
+
+        <style>
+                * {
+                    margin: 0px;
+                    padding: 0px;
+                    border: 0px;
+                }
+
+                #content-editor-container {
+                    background-color: #efefef;
+                }
+
+                .item-selected {
+                    color: rgb(0,122,204);
+                    font-weight: 700;
+                }
+
+                    .item-selected a {
+                        color: rgb(0,122,204);
+                        font-weight: 700;
+                    }
+
+                .menu-item-link {
+                    color: rgb(102,102,102);
+                }
+
+                    .menu-item-link:hover {
+                        color: rgb(0,122,204);
+                    }
+
+                .list-item {
+                    cursor: pointer;
+                }
+
+                .list-item-selected {
+                    color: rgb(0,122,204);
+                    cursor: pointer;
+                    background-color: #e6f3fb;
+                }
+
+                .list-item:hover {
+                    color: rgb(0,122,204);
+                    cursor: pointer;
+                    background-color: #e6f3fb;
+                }
+
+                .list-item-icon-hover-show {
+                    display: none;
+                }
+
+                .list-item:hover .list-item-icon-hover-show {
+                    display: inline-block;
+                }
+
+                .menu-bar-item {
+                }
+
+                    .menu-bar-item:hover {
+                        background-color: #d4e5f5;
+                    }
+
+                .menu-bar-item-fc:hover {
+                    color: rgb(0,122,204);
+                    cursor: pointer;
+                }
+
+                .row {
+                    cursor: pointer;
+                }
+
+                    .row:hover > .row-inner {
+                        background-color: #d4e5f5;
+                        color: rgb(0,122,204);
+                    }
+
+                .row-selected > .row-inner {
+                    background-color: #d4e5f5;
+                    color: rgb(0,122,204);
+                }
+
+                .filerow {
+                    cursor: pointer;
+                }
+
+                    .filerow:hover {
+                        background-color: #d4e5f5;
+                        color: rgb(0,122,204);
+                    }
+
+                .filerow-selected {
+                    background-color: #d4e5f5;
+                    color: rgb(0,122,204);
+                }
+
+                .hover-fa {
+                    background-color: transparent;
+                }
+
+                    .hover-fa:hover {
+                        background-color: #68e9fb;
+                        cursor: pointer;
+                        color: white;
+                    }
+
+                .hover-white {
+                    background-color: transparent;
+                }
+
+                    .hover-white:hover {
+                        background-color: white;
+                        cursor: pointer;
+                    }
+
+                .hover-button {
+                    background-color: #fafafa;
+                }
+
+                .hover-input {
+                    background-color: transparent;
+                    padding-left: 4px;
+                    cursor: auto;
+                    color: rgb(102,102,102);
+                }
+
+                    .hover-input:hover {
+                        background-color: #fafafa;
+                        color: rgb(0,122,204);
+                    }
+
+                .tag {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    width: auto;
+                    float: left;
+                    cursor: pointer;
+                }
+
+                    .tag:last-child {
+                        clear: both;
+                    }
+
+                    .tag input {
+                        background-color: #d7e6f3;
+                        line-height: 20px;
+                        height: 20px;
+                        width: auto;
+                        border-width: 0px;
+                        margin: 0px;
+                        margin-top: -1px;
+                    }
+
+                    .tag span {
+                        background-color: #d7e6f3;
+                        display: inline-block;
+                        padding-left: 5px;
+                        padding-right: 5px;
+                        width: auto;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                    }
+
+                .file-tab {
+                    background-color: #efefef;
+                    color: black;
+                    font-size: 14px;
+                    font-family: Verdana, Arial, Helvetica, sans-serif;
+                    font-weight: bold;
+                    border: 1px solid #e0e0e0;
+                    cursor: pointer;
+                }
+
+                    .file-tab:hover {
+                        background-color: white;
+                        border-color: white;
+                    }
+
+                .file-tab-selected {
+                    background-color: white;
+                    border-color: white;
+                }
+
+                .scroll-12::-webkit-scrollbar {
+                    width: 2px;
+                    height: 2px;
+                }
+
+                .scroll-1::-webkit-scrollbar {
+                    width: 5px;
+                    height: 5px;
+                }
+
+                .scroll-1::-webkit-scrollbar-button, .scroll-12::-webkit-scrollbar-button {
+                    background-color: #efefef;
+                    height: 0px;
+                }
+
+                .scroll-1::-webkit-scrollbar-track, .scroll-12::-webkit-scrollbar-track {
+                    background: #efefef;
+                    height: 0px;
+                }
+
+                /*.scroll-1::-webkit-scrollbar-track-piece, .scroll-12::-webkit-scrollbar-track-piece {
+                background: url(http://www.lyblog.net/wp/wp-content/themes/mine/img/stripes_tiny_08.png);
+            }*/
+
+                .scroll-1::-webkit-scrollbar-thumb, .scroll-12::-webkit-scrollbar-thumb {
+                    background: rgb(127,127,127);
+                    border-radius: 4px;
+                }
+
+                .scroll-1::-webkit-scrollbar-corner, .scroll-12::-webkit-scrollbar-corner {
+                    background: rgb(127,127,127);
+                }
+
+                .scroll-1::-webkit-scrollbar-resizer, .scroll-12::-webkit-scrollbar-resizer {
+                    background: rgb(127,127,127);
+                }
+        </style>
+        <style>
+            #dropzone {
+                margin-bottom: 3rem;
+            }
+
+            .dropzone {
+                border: 2px dashed #0087F7;
+                border-radius: 5px;
+                background: white;
+            }
+
+                .dropzone .dz-message {
+                    font-weight: 400;
+                }
+
+                    .dropzone .dz-message .note {
+                        font-size: 0.8em;
+                        font-weight: 200;
+                        display: block;
+                        margin-top: 1.4rem;
+                    }
+        </style>
+        <div style="margin:10px;">
+            <div class="row">
+                <h3 class="panel-title" style="margin-left:10px;">后台用户</h3>
+                <div>
+                    <div style="text-align:right">
+                        <button class="btn btn-turquoise add_new_user" onclick="" style="margin-right:20px;">添加</button>
+                    </div>
+                </div>
+                <table id="userlist" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>标题</th>
+                            <th>编码</th>
+                            <th>名称</th>
+                            <th>操    作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+    <div style="display:none;" class="main_userlist_add">
+        <div class="form-group" style="margin-top:20px;margin-left:0px;">
+            <div class="col-sm-10">
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">卡片编码:</label>
+                    <input type="text" name="cardno" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
+                </div>
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">名称:</label>
+                    <input type="text" name="name" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
+                </div>
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">标题:</label>
+                    <input type="text" name="title" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
+                </div>
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">图片:</label>
+                    <input type="text" name="imagesource" class="form-control input-sm" placeholder="" style="display:inline-block;width:265px;">
+                    <input type="button" class="form-control input-sm uploadfile" value="图片上传" style="display:inline-block;width:90px;">
+                </div>
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">描述:</label>
+                    <textarea type="password" name="description" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;height:80px;"></textarea>
+                </div>
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">备注:</label>
+                    <textarea type="password" name="remark" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;height:80px;"></textarea>
+                </div>
+                <div style="margin-top:10px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">附加数据:</label>
+                    <textarea type="password" name="data" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;height:80px;"></textarea>
+                </div>
+                <div style="margin-top:15px;text-align:right;margin-right:40px;">
+                    <button class="btn btn-secondary btn-single btn-added">添  加</button>
+                    <button class="btn btn-secondary btn-single btn-cancel">取  消</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="card_fileploader" style="display:none;">
+        <input type="file" name="files" />
+    </div>
+    <div id="preview-template" style="display: none;">
+        <div class="dz-preview dz-file-preview">
+            <div class="dz-image"><img data-dz-thumbnail=""></div>
+            <div class="dz-details">
+                <div class="dz-size"><span data-dz-size=""></span></div>
+                <div class="dz-filename"><span data-dz-name=""></span></div>
+            </div>
+            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+            <div class="dz-error-message"><span data-dz-errormessage=""></span></div>
+
+            <div class="dz-success-mark">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 54" width="54px" height="54px" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                    <!-- Generator: Sketch 3.2.1 (9971) - http://www.bohemiancoding.com/sketch -->
+                    <title>Check</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs />
+                    <g id="Page-1" fill="none" fill-rule="evenodd" stroke="none" stroke-width="1" sketch:type="MSPage">
+                        <path id="Oval-2" fill="#ffffff" fill-opacity="0.816519" stroke="#747474" stroke-opacity="0.198794" d="M 23.5 31.8431 L 17.5852 25.9284 C 16.0248 24.368 13.491 24.3668 11.9289 25.9289 C 10.37 27.4879 10.3666 30.0234 11.9284 31.5852 L 20.4148 40.0716 C 20.5134 40.1703 20.6159 40.2627 20.7219 40.3488 C 22.2836 41.8726 24.7942 41.8626 26.3462 40.3107 L 43.3107 23.3462 C 44.8771 21.7798 44.8758 19.2484 43.3137 17.6863 C 41.7548 16.1274 39.2176 16.1255 37.6538 17.6893 L 23.5 31.8431 Z M 27 53 C 41.3594 53 53 41.3594 53 27 C 53 12.6406 41.3594 1 27 1 C 12.6406 1 1 12.6406 1 27 C 1 41.3594 12.6406 53 27 53 Z" sketch:type="MSShapeGroup" />
+                    </g>
+                </svg>
+
+            </div>
+            <div class="dz-error-mark">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 54" width="54px" height="54px" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                    <!-- Generator: Sketch 3.2.1 (9971) - http://www.bohemiancoding.com/sketch -->
+                    <title>error</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs />
+                    <g id="Page-1" fill="none" fill-rule="evenodd" stroke="none" stroke-width="1" sketch:type="MSPage">
+                        <g id="Check-+-Oval-2" fill="#ffffff" fill-opacity="0.816519" stroke="#747474" stroke-opacity="0.198794" sketch:type="MSLayerGroup">
+                            <path id="Oval-2" d="M 32.6569 29 L 38.3107 23.3462 C 39.8771 21.7798 39.8758 19.2484 38.3137 17.6863 C 36.7548 16.1274 34.2176 16.1255 32.6538 17.6893 L 27 23.3431 L 21.3462 17.6893 C 19.7824 16.1255 17.2452 16.1274 15.6863 17.6863 C 14.1242 19.2484 14.1229 21.7798 15.6893 23.3462 L 21.3431 29 L 15.6893 34.6538 C 14.1229 36.2202 14.1242 38.7516 15.6863 40.3137 C 17.2452 41.8726 19.7824 41.8745 21.3462 40.3107 L 27 34.6569 L 32.6538 40.3107 C 34.2176 41.8745 36.7548 41.8726 38.3137 40.3137 C 39.8758 38.7516 39.8771 36.2202 38.3107 34.6538 L 32.6569 29 Z M 27 53 C 41.3594 53 53 41.3594 53 27 C 53 12.6406 41.3594 1 27 1 C 12.6406 1 1 12.6406 1 27 C 1 41.3594 12.6406 53 27 53 Z" sketch:type="MSShapeGroup" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        window.top.require ? window.require = window.top.require : document.writeln("<script src='/js/ts/loader.js'>\<\/script>");
+    </script>
+    <!--<script src="/wwwroot/js/ts/loader.js"></script>-->
+    <script src="/js/ts/Config.js"></script>
+    <script>
+        require(["Zonic.base", "box"], function (helper,box, xhr) {
+            box.Box.fetch("http://api.jxhuaxue.cn/cards", {
+                headers: { "request-host": "localhost" }
+            }).then(function (d) {
+                window.JSON.parse(d).data.forEach(function (t) {
+                    new box.Box.Box(
+                        "<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.Title + "</td><td>" + t.CardNo + "</td><td>" + t.Name + "</td><td><button class=\"btn btn-turquoise\" onclick='window.modify(\"" + t.Id + "\",\"" + t.UserName + "\",this)'>修改</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo("body");
+                });
+                }, function (d) {
+                    console.error(d);
+                });//.send();
+        });
+    </script>
+    <script type="text/html">
+
+        (function () {
+        function initList() {
+        zonic.ajax("http://api.jxhuaxue.cn/cards", "get", null, function (d) {
+        var z = zonic("#userlist tbody");
+        z.empty();
+        var index = 0;
+        window.JSON.parse(d).forEach(function (t) {
+        zonic("<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.Title + "</td><td>" + t.CardNo + "</td><td>" + t.Name + "</td><td><button class=\"btn btn-turquoise\" onclick='window.modify(\"" + t.Id + "\",\"" + t.UserName + "\",this)'>修改</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo(z);
+        });
+
+        });
+        }
+        initList();
+        var cardfile = $("#card_fileploader");
+        zonic(".add_new_user").on("click", function () {
+        var self = this;
+        zonic(this).attr("disabled", "disabled");
+        var layer = zonic.ui.layer({ dragable: false,  width: "580px", height: "550px" }).layout({left:"30%",top:"10%"}).append(zonic(".main_userlist_add").html());
+        layer.find(".btn-added").text("添加");
+        layer.find(".btn-cancel").on("click", function () {
+        layer.remove();
+        zonic(".add_new_user").removeAttr("disabled");
+        });
+        layer.find(".uploadfile").on("click", function () {
+        cardfile.append("body");
+        cardfile.find("input").fileupload({
+        url: "upload",
+        dataType: "json",
+        formData: {},
+        done: function (e, d) {
+        console.log(d.result);
+        var b = d.result;
+        if (b.result) {
+        layer.find("[name=imagesource]").value(b.urls[0]);
+        cardfile.remove();
+        } else {
+        alert("图片上传失败");
+        }
+        layer.find(".uploadfile").value("上传图片");
+        }, profressall: function () {
+        layer.find(".uploadfile").value("正在上传")
+        }
+        });
+        cardfile.find("input").click();
+        });
+        layer.find(".btn-added").on("click", function (e) {
+        var obj = zonic.serialize(layer.find(".form-group").selected[0]);
+        if (!obj.cardno) {
+        alert("编码不能为空");
+        return;
+        }
+        zonic.ajax("http://api.jxhuaxue.cn/cards", "post", obj, function (d) {
+        d = typeof d == "string" ? window.JSON.parse(d) : d;
+        if (d.result) {
+        alert("添加成功");
+        initList();
+        layer.remove();
+        zonic(self).removeAttr("disabled");
+        }
+        });
+        });
+
+        });
+        window.modify = function (id, un, self) {
+        var layer = zonic.ui.layer({ dragable: false,  width: "40%", height: "520px" }).layout({ left: "30%", top: "10%" }).append(zonic(".main_userlist_add").html());
+        layer.find(".btn-cancel").on("click", function () {
+        layer.remove();
+        zonic(".add_new_user").removeAttr("disabled");
+        });
+        layer.find(".btn-added").text("修改");
+        var data = JSON.parse(zonic(self).parent().parent().attr("zonic-data"));
+        zonic.deserialize(layer.find(".form-group").selected[0], data);
+        //layer.find("[name=account]").value(un);
+        layer.find(".btn-added").on("click", function (e) {
+        var obj = zonic.serialize(layer.find(".form-group").selected[0]);
+        if (!obj.cardno) {
+        alert("编码不能为空");
+        return;
+        }
+        obj.Id = id;
+        zonic.ajax("http://api.jxhuaxue.cn/cards", "put", obj, function (d) {
+        d = typeof d == "string" ? window.JSON.parse(d) : d;
+        if (d.result) {
+        alert("修改成功");
+        initList();
+        layer.remove();
+        zonic(".add_new_user").removeAttr("disabled");
+        }
+        });
+        });
+        layer.find(".uploadfile").on("click", function () {
+        //zonic("#fileupload .uploader-formneedsclick").trigger("click");
+        cardfile.append("body");
+        cardfile.find("input").fileupload({
+        url: "upload",
+        dataType: "json",
+        formData: {},
+        done: function (e, d) {
+        console.log(d.result);
+        var b = d.result;
+        if (b.result) {
+        layer.find("[name=imagesource]").value(b.urls[0]);
+        cardfile.remove();
+        } else {
+        alert("图片上传失败");
+        }
+        layer.find(".uploadfile").value("上传图片");
+        }, profressall: function () {
+        layer.find(".uploadfile").value("正在上传")
+        }
+        });
+        cardfile.find("input").click();
+        });
+        }
+        })();
+    </script>
+</body>
+</html>

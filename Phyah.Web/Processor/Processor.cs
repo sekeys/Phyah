@@ -39,7 +39,7 @@ namespace Phyah.Web
                 case "put": Verb = Verbs.Put; break;
                 case "unsafe": Verb = Verbs.Unsafe; break;
                 case "auth": Verb = Verbs.Auth; break;
-                //case "get": Verb = Verbs.Get; break;
+                case "patch": Verb = Verbs.Patch; break;
                 //case "get": Verb = Verbs.Get; break;
                 default: Verb = Verbs.Other; break;
             }

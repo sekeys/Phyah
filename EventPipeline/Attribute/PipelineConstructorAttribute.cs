@@ -4,12 +4,12 @@ namespace Phyah.EventPipeline.Attribute
 {
     using Phyah.EventPipeline.Matchers;
 
-    public abstract class MatcherConstructorAttribute:System.Attribute
+    public abstract class PipelineConstructorAttribute : System.Attribute
     {
-        public MatcherConstructorAttribute()
+        public PipelineConstructorAttribute()
         {
 
         }
-        public abstract IMatcher Construct(Messages.Message message);
+        public abstract IEventPipeline Construct(Messages.Message message);
     }
 }

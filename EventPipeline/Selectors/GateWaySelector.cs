@@ -10,7 +10,12 @@ namespace Phyah. EventPipeline
     using Phyah.EventPipeline.Messages;
     public class GateWaySelector : ISelector
     {
-        public IEnumerable<IMatcher> Select(Message message)
+        public string Verbs { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Protocols Protocol { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public int Priority => throw new NotImplementedException();
+
+        public IEventPipeline Select(Message message)
         {
             throw new NotImplementedException();
         }

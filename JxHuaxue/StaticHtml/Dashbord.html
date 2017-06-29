@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="" />
+
+    <title>华学旅游</title>
+    <link href="/css/behind/bootstrap.css" rel="stylesheet" />
+    <link href="/css/behind/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
+
+        .main-menu {
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+            .main-menu li.active > a {
+                color: #ffffff;
+            }
+
+            .main-menu a {
+                color: #979898;
+                text-decoration: none;
+                display: block;
+                padding: 13px 5px;
+                border-bottom: 1px solid #313437;
+            }
+
+                .main-menu a:hover {
+                    color: #ffffff;
+                }
+
+            .main-menu li.has-sub > a:before {
+                position: relative;
+                display: inline-block;
+                font-family: 'FontAwesome';
+                content: '\f107';
+                float: right;
+                color: #6d747a;
+                margin-left: 10px;
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+                -webkit-transition: all 150ms ease-in-out;
+                -moz-transition: all 150ms ease-in-out;
+                -o-transition: all 150ms ease-in-out;
+                transition: all 150ms ease-in-out;
+            }
+    </style>
+    <link href="/css/behind/side.css" rel="stylesheet" />
+    <link href="/css/index.css" rel="stylesheet" />
+</head>
+<body style="background-color:#fcfcfc;" class="scroll-udf">
+    <div style="margin:0px;margin-left:0px;display:inline-block;position:relative;height:100%;float:left;">
+        <div style="position:fixed;background-color:#313437;color:white;min-height:960px;width:16%;">
+            <div style="margin-top:0px;height:80px;width:100%;border-bottom:0.25px solid #484848;" class="menu-logo">
+                <h2 style="margin-top:30px;height:40px;line-height:30px;width:100%;">
+                    <span style="display:inline-block;margin-left:20px;">Phyah</span>
+                    <span style="display:inline-block;margin-left:80px;"><span style="color:white;width:15px;width:15px;font-size:16px;" class="fa fa-cog"></span></span>
+                </h2>
+            </div>
+            <div class="menu-container sidebar-menu" style="margin-top:20px;">
+                <ul id="main-menu" class="main-menu">
+                    <li class="active opened active expanded">
+                        <a href="userlist">
+                            <i class="fa-cog fa"></i>
+                            <span class="title">仪表板</span>
+                        </a>
+                    </li>
+                    <li class="has-sub">
+                        <a href="">
+                            <i class="fa fa-sitemap"></i>
+                            <span class="title">页面管理</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="pagelist">
+                                    <span class="title">页面管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="modulelist">
+                                    <span class="title">模块管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/statichtml/cardlist.html">
+                                    <span class="title">卡片管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-horizontal-plus-sidebar.html">
+                                    <span class="title">Horizontal &amp; Sidebar Menu</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-horizontal-menu-click-to-open-subs.html">
+                                    <span class="title">Horizontal Open On Click</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-horizontal-menu-min.html">
+                                    <span class="title">Horizontal Menu Minimal</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-right-sidebar.html">
+                                    <span class="title">Right Sidebar</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-chat-open.html">
+                                    <span class="title">Chat Open</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-horizontal-sidebar-menu-collapsed-right.html">
+                                    <span class="title">Both Menus &amp; Collapsed</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-boxed.html">
+                                    <span class="title">Boxed Layout</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-boxed-horizontal-menu.html">
+                                    <span class="title">Boxed &amp; Horizontal Menu</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://www.cssmoban.com">
+                                    <span class="title">weidea.net</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="mailbox-main.html">
+                            <i class="fa fa-file"></i>
+                            <span class="title">资源管理</span>
+                            <span class="label label-success pull-right">5</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="res.image">
+                                    <span class="title">图片</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="res.html">
+                                    <span class="title">HTML</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="res.html">
+                                    <span class="title">Javascript</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="res.css">
+                                    <span class="title">样式</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a>
+                            <i class="fa-user-o fa"></i>
+                            <span class="title">消息记录</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">所有消息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">系统消息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">个人信息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">邮件信息</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a>
+                            <i class="fa-user-o fa"></i>
+                            <span class="title">统计分析</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">用户跟踪</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">热点访问</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">统计管理</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a>
+                            <i class="fa-user-o fa"></i>
+                            <span class="title">后台管理</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">用户管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="userlist">
+                                    <span class="title">角色管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="sys.params">
+                                    <span class="title">菜单管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="has-sub">
+                        <a href="system">
+                            <i class="linecons-note"></i>
+                            <span class="title">系统管理</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="sys.params">
+                                    <span class="title">系统参数管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <span class="title">内容缓存管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-buttons.html">
+                                    <span class="title">行为缓存管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-buttons.html">
+                                    <span class="title">行为权限管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-tabs-accordions.html">
+                                    <span class="title">类型容器管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-modals.html">
+                                    <span class="title">路径映射管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-breadcrumbs.html">
+                                    <span class="title">Debug系统</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-blockquotes.html">
+                                    <span class="title">数据库管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-progressbars.html">
+                                    <span class="title">类图信息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-navbars.html">
+                                    <span class="title">路径行为</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-navbars.html">
+                                    <span class="title">后台脚本管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-navbars.html">
+                                    <span class="title">动态编译管理</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a href="system">
+                            <i class="linecons-note"></i>
+                            <span class="title">日志系统</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <span class="title">系统日志</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="sys.params">
+                                    <span class="title">后台登陆日志</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-buttons.html">
+                                    <span class="title">用户日志</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-buttons.html">
+                                    <span class="title">访问记录</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-modals.html">
+                                    <span class="title">用户跟踪</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ui-modals.html">
+                                    <span class="title">异常记录</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="margin:0px;margin-left:0px;display:inline-block;position:relative;height:100%;background-color:#fcfcfc;float:left;min-height:460px;margin-left:16%;width:84%;">
+        <div style="height:50px;width:100%;background-color:white;position:fixed;">
+
+        </div>
+        <div  style="padding:0px;border:0px;margin-top:70px;margin-left:10px;width:calc(100% - 20px);height:calc(100% - 80px);background-color:white;" >
+            <iframe class="scroll-udf" frameborder="0" scrolling="no" style="padding:0px;border:0px;width:97%;height:100%;" id="module_area"></iframe>
+        </div>
+    </div>
+    <script src="/js/Zonic.js"></script>
+    <script src="/js/behind/Common.js"></script>
+</body>
+</html>

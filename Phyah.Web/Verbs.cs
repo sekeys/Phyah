@@ -14,6 +14,7 @@ namespace Phyah.Enumerable
         Options,
         Unsafe,
         Auth,
+        Patch,
         Other
 
     }

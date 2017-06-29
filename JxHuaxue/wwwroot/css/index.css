@@ -1,0 +1,33 @@
+﻿.scroll-udf::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.scroll-udf::-webkit-scrollbar-button, .scroll-udf2::-webkit-scrollbar-button {
+    background-color: #efefef;
+    height: 0px;
+}
+
+.scroll-udf::-webkit-scrollbar-track, .scroll-udf2::-webkit-scrollbar-track {
+    background: #efefef;
+    height: 0px;
+}
+
+/*.scroll-udf::-webkit-scrollbar-track-piece, .scroll-udf2::-webkit-scrollbar-track-piece {
+            background: url(http://www.lyblog.net/wp/wp-content/themes/mine/img/stripes_tiny_08.png 
+
+);
+        }*/
+
+.scroll-udf::-webkit-scrollbar-thumb, .scroll-udf2::-webkit-scrollbar-thumb {
+    background: rgb(127,127,127);
+    border-radius: 4px;
+}
+
+.scroll-udf::-webkit-scrollbar-corner, .scroll-udf2::-webkit-scrollbar-corner {
+    background: rgb(127,127,127);
+}
+
+.scroll-udf::-webkit-scrollbar-resizer, .scroll-udf2::-webkit-scrollbar-resizer {
+    background: rgb(127,127,127);
+}

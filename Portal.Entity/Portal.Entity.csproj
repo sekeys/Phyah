@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="setting.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="7.0.7-m61" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="7.0.7-m61" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Phyah.EntityFramework.Services\Phyah.EntityFramework.Services.csproj" />
+    <ProjectReference Include="..\Phyah.Web\Phyah.Web.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -18,7 +18,7 @@ namespace Phyah.EventPipeline.Matchers
         readonly PriorityQueue<IMatcher> matcher;
         public PipelineMatcher()
         {
-            matcher= new PriorityQueue<IMatcher>(new MatcherCompare());
+            matcher = new PriorityQueue<IMatcher>(new MatcherCompare());
         }
         public IEnumerable<IEventPipeline> Match(IEnumerable<IMatcher> matchers)
         {
@@ -26,6 +26,14 @@ namespace Phyah.EventPipeline.Matchers
         }
         public IEventPipeline SelectBest(IEnumerable<IEventPipeline> pipelines)
         {
+            if (pipelines.Count() == 1)
+            {
+                return pipelines.ElementAt(0);
+            }
+            //foreach (var item in pipelines)
+            //{
+            //    item.
+            //}
             return null;
         }
     }

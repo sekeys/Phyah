@@ -8,30 +8,41 @@ using System.Text;
 namespace Phyah.EventPipeline
 {
     using Phyah.EventPipeline.Matchers;
-    public class PipelineSelector: ISelector
+    public class PipelineSelector
     {
+        class SelectorCompare : IComparer<ISelector>
+        {
+            public int Compare(ISelector x, ISelector y)
+            {
+                return x.Priority - y.Priority;
+            }
+        }
         /// <summary>
         /// 选择器
         /// </summary>
-        private readonly List<ISelector> Selectors;
+        private readonly PriorityQueue<ISelector> Selectors;
         protected PipelineSelector()
         {
-            Selectors = new List<ISelector>();//new PriorityQueue<ISelector>(new SelectorCompare());
+            Selectors = new PriorityQueue<ISelector>(new SelectorCompare());
         }
 
-        public virtual IEnumerable<IMatcher> Select(Message message)
+        public virtual ISelector Select(Message message)
         {
-            var ls = new List<IMatcher>();
-            foreach (var iselector in Selectors)
+            var iselectors = Selectors.Clone();
+            ISelector iselector = iselectors.Dequeue();
+            while (iselectors!=null)
             {
-                ls.AddRange(iselector.Select(message));
+                if (iselector.Select(message))
+                {
+                    return iselector;
+                }
             }
-            return ls;
+            return null;
         }
 
         public virtual void Add(ISelector selector)
         {
-            Selectors.Add(selector);
+            Selectors.Enqueue(selector);
         }
 
         public virtual void Remove(ISelector selector)

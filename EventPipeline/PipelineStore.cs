@@ -8,9 +8,9 @@ namespace Phyah.EventPipeline
 {
     public abstract class PipelineStore
     {
-        public IPipeline Match(IMatcher matcher)
-        {
-            throw new System.NotImplementedException();
-        }
+        //public IPipeline Match(IMatcher matcher)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
     }
 }

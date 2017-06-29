@@ -65,7 +65,7 @@ namespace Phyah.Concurrency
                 this.Handler = new ActionHandler(() =>
                 {
                     ((SynchronizationPipeline)pipeline).pipelineState = PipelineState.Running;
-
+                    Completed();
                 });
             }
             public override void Handle()

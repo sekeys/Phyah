@@ -10,7 +10,10 @@ namespace Phyah.EventPipeline
     using System.Text;
     public interface ISelector
     {
-
-        IEnumerable<IMatcher> Select(Message message);
+        string Verbs { get; set; }
+        Protocols Protocol { get; set; }
+        int Priority { get; }
+        //IEnumerable<IMatcher> Select(Message message);
+        IEventPipeline Select(Message message);
     }
 }

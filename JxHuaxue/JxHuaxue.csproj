@@ -1,0 +1,94 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+
+  </PropertyGroup>
+
+  <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
+  <ItemGroup>
+    <Content Include="wwwroot\css\behind\bootstrap.css" />
+    <Content Include="wwwroot\css\behind\font-awesome.min.css" />
+    <Content Include="wwwroot\css\behind\font-icon.css" />
+    <Content Include="wwwroot\css\behind\side.css" />
+    <Content Include="wwwroot\css\dropzone.css" />
+    <Content Include="wwwroot\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\css\fonts\fontawesome-webfont.woff2" />
+    <Content Include="wwwroot\css\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\css\index.css" />
+    <Content Include="wwwroot\js\behind\Common.js" />
+    <Content Include="wwwroot\js\behind\userlist.js" />
+    <Content Include="wwwroot\js\ts\Box.js" />
+    <Content Include="wwwroot\js\ts\Box.js.map" />
+    <Content Include="wwwroot\js\ts\Box.ts" />
+    <Content Include="wwwroot\js\ts\Color.js" />
+    <Content Include="wwwroot\js\ts\Color.js.map" />
+    <Content Include="wwwroot\js\ts\Color.ts" />
+    <Content Include="wwwroot\js\ts\Config.js" />
+    <Content Include="wwwroot\js\ts\Data.js" />
+    <Content Include="wwwroot\js\ts\Data.js.map" />
+    <Content Include="wwwroot\js\ts\Data.ts" />
+    <Content Include="wwwroot\js\ts\Emitter.js" />
+    <Content Include="wwwroot\js\ts\Emitter.ts" />
+    <Content Include="wwwroot\js\ts\loader.js" />
+    <Content Include="wwwroot\js\ts\Style.js" />
+    <Content Include="wwwroot\js\ts\Style.js.map" />
+    <Content Include="wwwroot\js\ts\Style.ts" />
+    <Content Include="wwwroot\js\ts\Zonic.base.js" />
+    <Content Include="wwwroot\js\ts\Zonic.base.ts" />
+    <Content Include="wwwroot\js\uploader.js" />
+    <Content Include="wwwroot\js\Zonic.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
+    <PackageReference Include="MySql.Data" Version="7.0.7-m61" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="7.0.7-m61" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="System.AppDomain" Version="2.0.11" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Phyah.Web\Phyah.Web.csproj" />
+    <ProjectReference Include="..\Phyah\Phyah.csproj" />
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\1.0\tsc&quot;    @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ')" />
+  </Target>
+</Project>
