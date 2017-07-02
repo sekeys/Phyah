@@ -1,7 +1,6 @@
 /// <reference path="color.ts" />
 define(["require", "exports", "./Color", "./Box"], function (require, exports, Color_1, Box_1) {
     "use strict";
-    exports.__esModule = true;
     var zonic;
     (function (zonic) {
         var TransformProperty = (function () {

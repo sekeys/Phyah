@@ -398,7 +398,10 @@ export module Box {
                     this.DOM = window.document;
                 }
                 this.find(dom);
-            } else {
+            } else if (dom instanceof Box) {
+                this.DOM = dom.DOM;
+            }
+            else {
                 this.DOM = dom;
             }
             this.rule = new style.StyleRule(this.DOM);
@@ -443,7 +446,7 @@ export module Box {
         }
         append(dom) {
             if (dom instanceof Box) {
-                dom = dom;
+                dom = dom.DOM;
             } else if (dom instanceof String) {
                 dom = new Box(dom).DOM;
             }
@@ -668,9 +671,9 @@ export module Box {
             if (!exp) { return this; }
             if (typeof exp === "string") {
                 if (/^</.test(exp)) {
-                    return this.DOM = Box.parseHtml(exp);
+                    return this.DOM = Box.parseHtml(exp).DOM;
                 } else if (/create:/i.test(exp)) {
-                    return this.DOM = Box.parseHtml(exp.substr(7));
+                    return this.DOM = Box.parseHtml(exp.substr(7)).DOM;
                 } else {
                     return this.DOM = this.DOM.querySelector(exp.toString()) as HTMLElement;
                 }
@@ -1473,7 +1476,13 @@ export module Box {
             window.clearInterval(this.timerid);
         }
     }
-
+    export interface ITemplate {
+        _html: string,
+        data:any
+        bind(data?);
+        html(html?);
+        apply();
+    }
     export class Layer extends Box {
         constructor(dom?) {
             super(null);

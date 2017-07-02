@@ -11,7 +11,6 @@ namespace Phyah.Enumerable
         Delete,
         Head,
         Put,
-        Options,
         Unsafe,
         Auth,
         Patch,

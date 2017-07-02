@@ -1,6 +1,5 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
     var zonic;
     (function (zonic) {
         var base = {}, op = Object.prototype, ostring = op.toString, hasOwn = op.hasOwnProperty, _isBrowser = !!(typeof window !== 'undefined' && typeof navigator !== 'undefined' && window.document), _isWebWorker = !isBrowser && typeof importScripts !== 'undefined';

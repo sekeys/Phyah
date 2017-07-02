@@ -35,7 +35,7 @@ namespace Phyah.Web
                 case "post": Verb = Verbs.Post; break;
                 case "head": Verb = Verbs.Head; break;
                 case "delete": Verb = Verbs.Delete; break;
-                case "options": Verb = Verbs.Options; break;
+                //case "options": Verb = Verbs.Options; break;
                 case "put": Verb = Verbs.Put; break;
                 case "unsafe": Verb = Verbs.Unsafe; break;
                 case "auth": Verb = Verbs.Auth; break;

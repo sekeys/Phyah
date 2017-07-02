@@ -328,13 +328,14 @@
                         <button class="btn btn-turquoise add_new_user" onclick="" style="margin-right:20px;">添加</button>
                     </div>
                 </div>
-                <table id="userlist" class="table table-bordered table-striped">
+                <table id="list" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th width="10px">#</th>
+                            <th>名称</th>
                             <th>标题</th>
                             <th>编码</th>
-                            <th>名称</th>
+                            <th>链接</th>
                             <th>操    作</th>
                         </tr>
                     </thead>
@@ -437,9 +438,12 @@
             box.Box.fetch("http://api.jxhuaxue.cn/cards", {
                 headers: { "request-host": "localhost" }
             }).then(function (d) {
+                var list = new box.Box.Box("#list tbody");
+                list.html("");
+                var index = 0;
                 window.JSON.parse(d).data.forEach(function (t) {
                     new box.Box.Box(
-                        "<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.Title + "</td><td>" + t.CardNo + "</td><td>" + t.Name + "</td><td><button class=\"btn btn-turquoise\" onclick='window.modify(\"" + t.Id + "\",\"" + t.UserName + "\",this)'>修改</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo("body");
+                        "<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.name + "</td><td>" + t.title + "</td><td>" + t.no + "</td><td>" + t.href + "</td><td><button class=\"btn btn-turquoise\">修改</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo(list);
                 });
                 }, function (d) {
                     console.error(d);

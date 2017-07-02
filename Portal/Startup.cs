@@ -58,7 +58,7 @@ namespace Portal
                 {
                     var context = AccessorContext.DefaultContext.Get<HttpContext>();
                     var req = context.Request;
-                    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    //context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                     string host = req.Host.Host;
                     if (req.Headers.ContainsKey("request-host"))
                     {
@@ -96,6 +96,7 @@ namespace Portal
                 options.MultipartBodyLengthLimit = int.MaxValue;
                 options.BufferBodyLengthLimit = int.MaxValue;
             });
+            services.AddCors();
             services.AddRouting();
         }
 
@@ -112,10 +113,11 @@ namespace Portal
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(policy => policy
-                .WithOrigins("*")
+                .AllowAnyOrigin()
                 .AllowAnyMethod()
-                .WithHeaders("Access-Control-Allow-Origin, Content-Type, x-xsrf-token, Authorization,request-host,origin")
+                .AllowAnyHeader()
                 .AllowCredentials());
+
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

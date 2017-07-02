@@ -1,16 +1,10 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 define(["require", "exports", "./Zonic.base", "./Emitter", "./Style"], function (require, exports, Zonic_base_1, Emitter_1, Style_1) {
     "use strict";
-    exports.__esModule = true;
     var Box;
     (function (Box_1) {
         function width() {
@@ -403,6 +397,9 @@ define(["require", "exports", "./Zonic.base", "./Emitter", "./Style"], function 
                     }
                     this.find(dom);
                 }
+                else if (dom instanceof Box) {
+                    this.DOM = dom.DOM;
+                }
                 else {
                     this.DOM = dom;
                 }
@@ -448,7 +445,7 @@ define(["require", "exports", "./Zonic.base", "./Emitter", "./Style"], function 
             };
             Box.prototype.append = function (dom) {
                 if (dom instanceof Box) {
-                    dom = dom;
+                    dom = dom.DOM;
                 }
                 else if (dom instanceof String) {
                     dom = new Box(dom).DOM;
@@ -580,10 +577,10 @@ define(["require", "exports", "./Zonic.base", "./Emitter", "./Style"], function 
                 }
                 if (typeof exp === "string") {
                     if (/^</.test(exp)) {
-                        return this.DOM = Box.parseHtml(exp);
+                        return this.DOM = Box.parseHtml(exp).DOM;
                     }
                     else if (/create:/i.test(exp)) {
-                        return this.DOM = Box.parseHtml(exp.substr(7));
+                        return this.DOM = Box.parseHtml(exp.substr(7)).DOM;
                     }
                     else {
                         return this.DOM = this.DOM.querySelector(exp.toString());
@@ -1878,5 +1875,6 @@ define(["require", "exports", "./Zonic.base", "./Emitter", "./Style"], function 
         }(Box));
         Box_1.CheckboxGroup = CheckboxGroup;
     })(Box = exports.Box || (exports.Box = {}));
+    exports.__esModule = true;
     exports["default"] = Box;
 });
