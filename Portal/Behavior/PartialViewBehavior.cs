@@ -20,6 +20,19 @@ namespace Portal.Behavior
         {
             Service = new PartialViewService();
         }
+        public async Task DELETE()
+        {
+            try
+            {
+                string Host = AccessorContext.DefaultContext.Get<string>("host");
+                await Service.DeleteAsync(Request.Query["id"]);
+                await Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                await Status(StatusCode.UNKNOWERROR, ex.Message);
+            }
+        }
         public async Task Get()
         {
             try
@@ -77,7 +90,7 @@ namespace Portal.Behavior
             try
             {
                 var entity = (from item in Service.Context.Set<PartialView>()
-                              where item.Id == Request.Query["id"].ToString()
+                              where item.Id == Request.Form["id"].ToString()
                               select item).Select(m => new {
                                   id = m.Id,
                                   disabled = m.Disabled,
@@ -103,9 +116,9 @@ namespace Portal.Behavior
             try
             {
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                Service.Update(new PartialView()
+                await Service.UpdateAsync(Request.Form["id"], new PartialView()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Request.Form["id"],
                     Hash = Request.Form["hash"],
                     Content = Request.Form["Content"],
                     CreateDate = Request.Form["Created"].ToString().ToDateTime(DateTime.Now),

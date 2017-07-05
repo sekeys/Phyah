@@ -27,16 +27,17 @@ namespace Portal.Behavior
             {
                 var current = Request.Query["current"].ToString().ToInt32(1);
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                var item = (await Service.MultipleAsync(m => m.System == Host)).Select(m =>new {
-                    id=m.Id,
-                    name=m.Name,
-                    disabled =m.Disabled,
-                    form=m.FormCode,
-                    information=m.Information,
-                    phone=m.Phone,
-                    remark=m.Remark,
-                    sort=m.Sort,
-                    submitdate=m.SubtmitDate,
+                var item = (await Service.MultipleAsync(m => m.System == Host)).Select(m => new
+                {
+                    id = m.Id,
+                    name = m.Name,
+                    disabled = m.Disabled,
+                    form = m.FormCode,
+                    information = m.Information,
+                    phone = m.Phone,
+                    remark = m.Remark,
+                    sort = m.Sort,
+                    submitdate = m.SubtmitDate,
                 }); ;
                 await Json(new
                 {
@@ -82,8 +83,9 @@ namespace Portal.Behavior
             try
             {
                 var entity = (from item in Service.Context.Set<Contactor>()
-                              where item.Id == Request.Query["id"].ToString()
-                              select item).Select(m => new {
+                              where item.Id == Request.Form["id"].ToString()
+                              select item).Select(m => new
+                              {
                                   id = m.Id,
                                   name = m.Name,
                                   disabled = m.Disabled,
@@ -110,7 +112,7 @@ namespace Portal.Behavior
             try
             {
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                Service.Update(new Contactor()
+                await Service.UpdateAsync(Request.Form["id"], new Contactor()
                 {
                     Id = Request.Form["id"],
                     Name = Request.Form["name"],
@@ -123,6 +125,19 @@ namespace Portal.Behavior
                     Disabled = false,
                     Sort = Request.Form["sort"].ToString().ToInt32(0)
                 });
+                await Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                await Status(StatusCode.UNKNOWERROR, ex.Message);
+            }
+        }
+        public async Task DELETE()
+        {
+            try
+            {
+                string Host = AccessorContext.DefaultContext.Get<string>("host");
+                await Service.DeleteAsync(Request.Query["id"]);
                 await Json(new { result = true });
             }
             catch (Exception ex)

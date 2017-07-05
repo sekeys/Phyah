@@ -26,7 +26,8 @@ namespace Portal.Behavior
             {
                 var current = Request.Query["current"].ToString().ToInt32(1);
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                var item = (await Service.MultipleAsync(m => m.System == Host)).Select(m => new {
+                var item = (await Service.MultipleAsync(m => m.System == Host)).Select(m => new
+                {
                     id = m.Id,
                     author = m.Author,
                     disabled = m.Disabled,
@@ -83,7 +84,7 @@ namespace Portal.Behavior
             try
             {
                 var entity = (from item in Service.Context.Set<Article>()
-                              where item.Id == Request.Query["id"].ToString()
+                              where item.Id == Request.Form["id"].ToString()
                               select item).Select(m => new
                               {
                                   id = m.Id,
@@ -113,7 +114,7 @@ namespace Portal.Behavior
             try
             {
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                Service.Update(new Article()
+                await Service.UpdateAsync(Request.Form["id"], new Article()
                 {
                     Id = Request.Form["id"],
                     Author = Request.Form["Author"],
@@ -127,6 +128,19 @@ namespace Portal.Behavior
                     Disabled = Request.Form["disabled"].ToString().ToBoolean(),
                     Sort = Request.Form["sort"].ToString().ToInt32(0)
                 });
+                await Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                await Status(StatusCode.UNKNOWERROR, ex.Message);
+            }
+        }
+        public async Task DELETE()
+        {
+            try
+            {
+                string Host = AccessorContext.DefaultContext.Get<string>("host");
+                await Service.DeleteAsync(Request.Query["id"]);
                 await Json(new { result = true });
             }
             catch (Exception ex)

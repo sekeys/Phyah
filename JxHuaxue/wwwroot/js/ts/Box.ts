@@ -188,6 +188,11 @@ export module Box {
             if (arguments.length === 2 && typeof data === "function")
                 callback = data, data = null;
             this.method = method || this.method;
+            if (data) {
+                data = helper.merge(data, this.data);
+            } else {
+                data = this.data;
+            }
             if (typeof data === "object") {
                 var d = "";
                 for (var i in data) {
@@ -200,7 +205,7 @@ export module Box {
             if (this._mimeType != null && !("accept" in this.headers))
                 this.headers["accept"] = this._mimeType + ",*/*";
             if (this.request.setRequestHeader)
-                if (!/head|get/i.test(method)) {
+                if (!/head|get/i.test(this.method)) {
                     this.request.setRequestHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
                 }
             for (var name in this.headers)
@@ -409,6 +414,20 @@ export module Box {
         extend(option) {
             return this;
         }
+        show() {
+            this.rule.apply({ opacity: 1, display: "block" });
+        }
+        hide() {
+            this.rule.apply({ opacity: 0, display: "none" });
+        }
+        click(fn) {
+            this.on("click", fn);
+            return this;
+        }
+        dbclick(fn) {
+            this.on("dbclick", fn);
+            return this;
+        }
         hasChild() {
             return !!this.DOM.children.length;
         }
@@ -423,6 +442,44 @@ export module Box {
         }
         sibling() {
 
+        }
+        formJson(ignore?) {
+            var json = {};
+            this.selects("input,select,.camouflage-form").each(function (item) {
+                var b = new Box(item), val = null, name = b.attr("name");
+                if (!name) { return; }
+                if (item.tagName.toLowerCase() === "input" || item.tagName.toLowerCase() === "select") {
+                    val = b.value();
+                    if (val == null) {
+                        ignore ? "" : json[name] = null;
+                    } else {
+                        json[name] = val;
+                    }
+                } else {
+                    val = b.attr("value");
+                    if (!val) {
+                        ignore ? "" : json[name] = null;
+                    } else {
+                        json[name] = val;
+                    }
+                }
+            });
+            return json;
+        }
+        deformJson(json) {
+            this.selects("input,select,.camouflage-form").each(function (item) {
+                var b = new Box(item), val = null, name = b.attr("name");
+                if (!name || json[name] == null || json[name] == undefined) { return; }
+                if (item.tagName.toLowerCase() === "input" || item.tagName.toLowerCase() === "select") {
+                    b.value(json[name]);
+                } else {
+                    b.attr("value", json[name]);
+                    if (b.hasClass("camouflage-text")) {
+                        b.html(json[name]);
+                    }
+                }
+            });
+            return json;
         }
         children(exp?) {
             return new Boxes(this).children(exp);
@@ -447,8 +504,8 @@ export module Box {
         append(dom) {
             if (dom instanceof Box) {
                 dom = dom.DOM;
-            } else if (dom instanceof String) {
-                dom = new Box(dom).DOM;
+            } else if ((typeof dom).toLowerCase() === "string") {
+                dom = new Box(dom.trim()).DOM;
             }
             this.DOM.appendChild(dom);
             return this;
@@ -569,6 +626,7 @@ export module Box {
                 new Box(bindDom).on("mousedown", function (a) {
                     var o = moveDom.node ? moveDom.node() : moveDom;
                     var d = document; if (!a) a = window.event;
+                    var area = o.area();
                     if (!a.pageX) a.pageX = a.clientX;
                     if (!a.pageY) a.pageY = a.clientY;
                     var x = a.pageX, y = a.pageY;
@@ -583,7 +641,9 @@ export module Box {
                         if (!a) a = window.event;
                         if (!a.pageX) a.pageX = a.clientX;
                         if (!a.pageY) a.pageY = a.clientY;
-                        var tx = a.pageX - x + parseInt1(moveDom.css("left")), ty = a.pageY - y + parseInt1(moveDom.css("top"));
+                        var area = o.area();
+
+                        var tx = a.pageX - x + area.left, ty = a.pageY - y + area.top;
                         moveDom.css({ left: tx + "px", top: ty + "px" });
                         x = a.pageX;
                         y = a.pageY;
@@ -662,6 +722,10 @@ export module Box {
             var b = new Box(this.DOM);
             return b.find(exp);
         }
+        selects(exp): Boxes {
+            var b = new Boxes(this.DOM);
+            return b.find(exp);
+        }
         static select(exp) {
             var b = new Box(window.document);
             return b.find(exp);
@@ -670,12 +734,16 @@ export module Box {
             //this.selected = [];
             if (!exp) { return this; }
             if (typeof exp === "string") {
+                exp = exp.trim();
                 if (/^</.test(exp)) {
-                    return this.DOM = Box.parseHtml(exp).DOM;
+                    this.DOM = Box.parseHtml(exp).DOM;
+                    return this;
                 } else if (/create:/i.test(exp)) {
-                    return this.DOM = Box.parseHtml(exp.substr(7)).DOM;
+                    this.DOM = Box.parseHtml(exp.substr(7)).DOM;
+                    return this;
                 } else {
-                    return this.DOM = this.DOM.querySelector(exp.toString()) as HTMLElement;
+                    this.DOM = this.DOM.querySelector(exp.toString()) as HTMLElement;
+                    return this;
                 }
             } else if (exp instanceof Box) {
                 this.DOM = exp.DOM;
@@ -690,12 +758,14 @@ export module Box {
             return this;
         }
         css(css: any) {
-            if (css instanceof String && !/:/g.test(css.toString())) {
-                return this.DOM.get(css).value;
+            if ((typeof css).toLowerCase() === "string" && !/:/g.test(css.toString())) {
+                var cs = this.rule.get(css);
+                return !cs ? "" : cs.value;//.get(css).value;
             }
             else {
                 var cssrule = style.StyleRule.parse(css);
-                this.rule.apply(cssrule);
+                cssrule.apply(this.DOM);
+                //this.rule.apply(cssrule);
                 return this;
             }
         }
@@ -753,7 +823,7 @@ export module Box {
             return this.prop("outerHTML");
         }
         prop(name, value?) {
-            if (!value) {
+            if (value==null || value==undefined) {
                 return this.DOM[name];
             }
             this.DOM[name] = value;
@@ -953,6 +1023,7 @@ export module Box {
         }
         find(exp): any {
             if (typeof exp === "string") {
+                exp = exp.trim();
                 if (/^</.test(exp)) {
                     return Boxes.select(Box.parseHtml(exp));
                 } else {
@@ -1038,7 +1109,7 @@ export module Box {
             }, this.selected.length > 1 ? pos : 0);
         }
         prop(name, value?) {
-            if (!value) {
+            if (value==null || value==undefined) {
                 var node = this.node();
                 return node[name];
             }
@@ -1478,17 +1549,17 @@ export module Box {
     }
     export interface ITemplate {
         _html: string,
-        data:any
+        data: any
         bind(data?);
         html(html?);
         apply();
     }
     export class Layer extends Box {
         constructor(dom?) {
-            super(null);
-            this.DOM = Box.parseHtml("div");
+            super(Box.parseHtml("div"));
         }
         zindex = 10;
+        mask: Layer
         initialize(conf?) {
             conf = conf || {};
             var me = this;
@@ -1501,6 +1572,12 @@ export module Box {
             if (conf.mode == "mask") {
                 this.rule.apply({ left: "0px", right: "0px", top: "0px", bottom: "0px", width: window.screen.availWidth + "px", height: window.screen.height + "px", opacity: 0.4, position: "fixed" });
             }
+            else if (conf.mode == "masking") {
+                //this.rule.apply({ left: "0px", right: "0px", top: "0px", bottom: "0px", width: window.screen.availWidth + "px", height: window.screen.height + "px", opacity: 0.4, position: "fixed" });
+                this.mask = new Layer();
+                this.mask.initialize({ mode: "mask", zindex: this.zindex - 1 });
+                //this.append(this.mask);
+            }
             if ("D3" in conf) {
                 this.attr("layer-box-3D", "D3");
             }
@@ -1509,19 +1586,29 @@ export module Box {
                     var r = me.area(), width = r.width, height = r.height;
                     me.rule.apply({
                         opacity: conf.mode == "mask" ? 0.45 : 1,
-                        top: ((conf.top || window.screen.availHeight / 2) - height / 1.8) + "px", left: ((conf.left || window.screen.availWidth / 2) - width / 2) + "px"
+                        top: conf.mode == "mask" ? "0px" : (((conf.top || window.screen.availHeight / 2) - height / 1.8) + "px"), left: conf.mode == "mask" ? "0px" : (((conf.left || window.screen.availWidth / 2) - width / 2) + "px")
                     });
                 }, 0);
             }
             else { window.setTimeout(function () { me.rule.apply({ opacity: conf.mode == "mask" ? 0.45 : 1 }); }, 0); }
-            if (!helper.hasProp(conf, "dragable") || conf.dragable) Box.drag(this, this, 0.3);
+            if (!helper.hasProp(conf, "dragable") || conf.dragable)
+                Box.drag(this, this, 0.3);
             return this;
         }
         layout(css) {
-            return this.rule.apply(css);
+            this.rule.apply(css);
+            return this;
+        }
+
+        remove() {
+            super.remove();
+            if (this.mask && this.mask.remove) { this.mask.remove(); }
+            return this;
         }
         render(dom) {
-            this.appendTo(dom || new Box("body"));
+            dom = dom || new Box("body");
+            this.appendTo(dom);
+            this.mask.appendTo(dom);
             return this;
         }
     }
@@ -1615,7 +1702,7 @@ export module Box {
                         new Box(Box.parseHtml("div").rule.apply('font:inherit; padding: 0px; outline: invert; border: medium; transition:450ms cubic-bezier(0.23, 1, 0.32, 1); border-image: none; width: 100%; height: 100%; color: rgba(0, 0, 0, 0.87); margin-top: ' + (u._height * 0.2) + 'px; display: block; position: relative; cursor: inherit; box-sizing: border-box; font-size-adjust: none; font-stretch: inherit; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); background-color: rgba(0, 0, 0, 0)').DOM)
                             .call(function () {
                                 new Box(Box.parseHtml("div")).css({ "padding-left": "5px", cursor: "pointer", height: "100%", position: "relative", width: "100%" })
-                                    .append(Box.parseHtml("div").rule.apply("box-sizing:border-box;content: \" \";display:table;").DOM)
+                                ["append"](Box.parseHtml("div").rule.apply("box-sizing:border-box;content: \" \";display:table;").DOM)
                                     .append(new Box(Box.parseHtml("div").rule.apply("top: " + (height * 0.21) + "px; color: rgba(0, 0, 0, 0.87); line-height: " + (height * 0.8) + "px; overflow: hidden; padding-right: 56px; padding-left: 0px; white-space: nowrap; position: relative;text-overflow: ellipsis; opacity: 1;").DOM).class("zonic-select-area").html(u.txt || "&nbsp;"))
                                     .append(Box.parseHtml("button").attr({ type: "button" }).css({ "border": (height * 0.117) + "px", " box-sizing": "border-box", "display": "inline-block", "font-family": " Roboto, sans-serif", " -webkit-tap-highlight-color": " rgba(0, 0, 0, 0)", " cursor": " pointer", " text-decoration": " none", " margin": " 0px", "padding": (height * 0.1067) + "px", "outline": " none", "font-size": " 0px", "font-weight": " inherit", "position": "absolute", "z-index": " 1", "overflow": " visible", "transition": " all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms", " width": (height * 0.76067) + "px", " height": (height * 0.76067) + "px", " fill": " rgb(224, 224, 224)", " right": " 0px", " top": (height * 0.30) + "px", " background": " none" }).html('<div><svg viewBox="0 0 ' + (height * 0.33) + ' ' + (height * 0.33) + '" style="display: inline-block; color: rgba(0, 0, 0, 0.870588); fill: inherit; height: ' + (height * 0.33) + 'px; width: ' + (height * 0.33) + 'px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;"><path d="M7 10l5 5 5-5z"></path></svg></div>'))
                                     .append(Box.parseHtml("div").css({ "border-top": "none", "bottom": "1px", left: "0px", margin: "-1px 24px", right: "0px", position: "absolute" }))
@@ -1656,8 +1743,7 @@ export module Box {
             );
             Box.select("body").on("click", function (e) {
                 var e = e || window.event;
-                if (u.DOM.isEqualNode(e.target) ||
-                    u.find("*").has(e.target)) {
+                if (u.DOM.isEqualNode(e.target)) {
                     return;
                 }
                 u.layer.remove();

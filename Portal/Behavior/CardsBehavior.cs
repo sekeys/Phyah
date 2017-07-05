@@ -88,12 +88,12 @@ namespace Portal.Behavior
             try
             {
                 var entity = (from item in Service.Context.Set<Card>()
-                              where item.Id == Request.Query["id"].ToString()
+                              where item.Id == Request.Form["id"].ToString()
                               select item).Select(m => new {
                                   id = m.Id,
                                   name = m.Name,
                                   disabled = m.Disabled,
-                                  no = m.CardNo,
+                                  cardno = m.CardNo,
                                   classify = m.Classify,
                                   data = m.Data,
 
@@ -120,9 +120,9 @@ namespace Portal.Behavior
             try
             {
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                Service.Update(new Card()
+                var card = new Card()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Request.Form["id"].ToString(),
                     CardNo = Request.Form["CardNo"],
                     Classify = Request.Form["Classify"],
                     Data = Request.Form["Data"],
@@ -135,7 +135,22 @@ namespace Portal.Behavior
                     System = Host,
                     Disabled = Request.Form["disabled"].ToString().ToBoolean(),
                     Sort = Request.Form["sort"].ToString().ToInt32(0)
-                });
+                };
+                await Service.UpdateAsync(card.Id,card);
+                await Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                await Status(StatusCode.UNKNOWERROR, ex.Message);
+            }
+        }
+
+        public async Task DELETE()
+        {
+            try
+            {
+                string Host = AccessorContext.DefaultContext.Get<string>("host");
+                await Service.DeleteAsync(Request.Query["id"]);
                 await Json(new { result = true });
             }
             catch (Exception ex)

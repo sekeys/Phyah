@@ -15,6 +15,7 @@
     <Content Include="wwwroot\css\fonts\fontawesome-webfont.woff2" />
     <Content Include="wwwroot\css\fonts\FontAwesome.otf" />
     <Content Include="wwwroot\css\index.css" />
+    <Content Include="wwwroot\css\Zonic.css" />
     <Content Include="wwwroot\js\behind\Common.js" />
     <Content Include="wwwroot\js\behind\userlist.js" />
     <Content Include="wwwroot\js\ts\Box.js" />

@@ -77,7 +77,7 @@ namespace Portal.Behavior
             try
             {
                 var entity = (from item in Service.Context.Set<Role>()
-                              where item.Id == Request.Query["id"].ToString()
+                              where item.Id == Request.Form["id"].ToString()
                               select item).Select(m => new {
                                   id = m.Id,
                                   name = m.Name,
@@ -98,14 +98,27 @@ namespace Portal.Behavior
                 await Status(StatusCode.UNKNOWERROR, ex.Message);
             }
         }
+        public async Task DELETE()
+        {
+            try
+            {
+                string Host = AccessorContext.DefaultContext.Get<string>("host");
+                await Service.DeleteAsync(Request.Query["id"]);
+                await Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                await Status(StatusCode.UNKNOWERROR, ex.Message);
+            }
+        }
         public async Task PUT()
         {
             try
             {
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                Service.Update(new Role()
+                await Service.UpdateAsync(Request.Form["id"], new Role()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Request.Form["id"],
                     Department = Request.Form["department"],
                     Description = Request.Form["Description"],
                     Parent = Request.Form["parent"],

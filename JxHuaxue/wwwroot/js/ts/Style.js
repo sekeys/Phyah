@@ -1,6 +1,7 @@
 /// <reference path="color.ts" />
 define(["require", "exports", "./Color", "./Box"], function (require, exports, Color_1, Box_1) {
     "use strict";
+    exports.__esModule = true;
     var zonic;
     (function (zonic) {
         var TransformProperty = (function () {
@@ -122,6 +123,9 @@ define(["require", "exports", "./Color", "./Box"], function (require, exports, C
                         this.map.set(property, val);
                     }
                 }
+                else if ((this.DOM instanceof HTMLDocument)) {
+                    return this;
+                }
                 else if (this.DOM) {
                     return this.initialize(this.DOM);
                 }
@@ -145,8 +149,19 @@ define(["require", "exports", "./Color", "./Box"], function (require, exports, C
             };
             StyleRule.prototype.apply = function (component) {
                 //box.Box["css"](component, this.map);
+                if (typeof component === "string") {
+                    component = StyleRule.parse(component);
+                }
                 if (component instanceof Box_1["default"].Box) {
-                    this.style(component, this.map);
+                    this.DOM = component;
+                    this.css(this.map);
+                }
+                else if (component instanceof HTMLElement) {
+                    this.DOM = new Box_1["default"].Box(component);
+                    this.css(this.map);
+                }
+                else if (component && this.DOM) {
+                    this.css(component instanceof StyleRule ? component.map : component);
                 }
                 return this;
             };
@@ -180,6 +195,10 @@ define(["require", "exports", "./Color", "./Box"], function (require, exports, C
                     }
                     var curElSty = this.currentStyle || me._getStyle(this), elSty = this.style;
                     p = me.parseProperty(p);
+                    if (p.toLowerCase() === "zindex") {
+                        me.style(me.DOM, "z-index", value);
+                        return;
+                    }
                     try {
                         if (p in curElSty) {
                             try {
@@ -222,28 +241,45 @@ define(["require", "exports", "./Color", "./Box"], function (require, exports, C
                 };
                 if (arguments.length === 1) {
                     if (typeof prop === "string") {
-                        return cssgetProperty.call(this.DOM.DOM, this.parseProperty(prop));
+                        return cssgetProperty.call(new Box_1["default"].Box(this.DOM).DOM, this.parseProperty(prop));
+                    }
+                    else if (prop instanceof StylePropertyMap) {
+                        var dom = new Box_1["default"].Box(this.DOM).DOM;
+                        prop.forEach(function (v, index) {
+                            cssProperty.call(dom, v.key, v.value);
+                        });
                     }
                     else {
                         for (var p in prop)
-                            cssProperty.call(this.DOM.DOM, p.trim(), prop[p]);
+                            cssProperty.call(new Box_1["default"].Box(this.DOM).DOM, p.trim(), prop[p]);
                     }
                 }
                 else if (arguments.length === 2) {
                     if (typeof prop === "string") {
-                        cssProperty.call(this.DOM.DOM, prop, value);
+                        cssProperty.call(new Box_1["default"].Box(this.DOM).DOM, prop, value);
                     }
                     else if (typeof value === "function") {
-                        for (var p in prop)
-                            value.call(this.DOM.DOM, [p.trim(), prop[p]]);
+                        if (prop instanceof StylePropertyMap) {
+                            var dom = new Box_1["default"].Box(this.DOM).DOM;
+                            prop.forEach(function (v, index) {
+                                value.call(dom, v.key, v.value);
+                            });
+                        }
+                        else {
+                            for (var p in prop)
+                                value.call(new Box_1["default"].Box(this.DOM).DOM, [p.trim(), prop[p]]);
+                        }
                     }
                 }
                 return this;
             };
             StyleRule.prototype.style = function (bom, prop, value) {
+                if (!(bom instanceof Box_1["default"].Box)) {
+                    bom = new Box_1["default"].Box(bom);
+                }
                 //elSty.cssText += ";" + prop + ":" + value + ";";
                 var style = bom.attr("style") || "";
-                if (arguments.length === 1) {
+                if (arguments.length === 2) {
                     if (typeof prop === "string") {
                         style += ";" + prop;
                     }
@@ -254,7 +290,7 @@ define(["require", "exports", "./Color", "./Box"], function (require, exports, C
                         style += ";" + c;
                     }
                 }
-                else if (arguments.length === 2) {
+                else if (arguments.length === 3) {
                     style += ";" + prop + ":" + value;
                 }
                 bom.attr("style", style);

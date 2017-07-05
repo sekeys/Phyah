@@ -83,7 +83,7 @@ namespace Portal.Behavior
             try
             {
                 var entity = (from item in Service.Context.Set<Menu>()
-                              where item.Id == Request.Query["id"].ToString()
+                              where item.Id == Request.Form["id"].ToString()
                               select item).Select(m => new {
                                   id = m.Id,
                                   name = m.Name,
@@ -108,9 +108,9 @@ namespace Portal.Behavior
             try
             {
                 string Host = AccessorContext.DefaultContext.Get<string>("host");
-                Service.Update(new Entity.Menu()
+                await Service.UpdateAsync(Request.Form["id"], new Entity.Menu()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Request.Form["id"],
                     Parent = Request.Form["parent"],
                     Href = Request.Form["Href"],
                     Name = Request.Form["Name"],
@@ -180,6 +180,19 @@ namespace Portal.Behavior
             {
                 string host = AccessorContext.DefaultContext.Get<string>("host");
                 await Service.ReplaceRelAsync(Request.Form["id"],Request.Form["m"], host, Request.Form["v"]);
+                await Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                await Status(StatusCode.UNKNOWERROR, ex.Message);
+            }
+        }
+        public async Task DELETE()
+        {
+            try
+            {
+                string Host = AccessorContext.DefaultContext.Get<string>("host");
+                await Service.DeleteAsync(Request.Query["id"]);
                 await Json(new { result = true });
             }
             catch (Exception ex)

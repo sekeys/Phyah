@@ -70,233 +70,233 @@
             }
     </style>
     <link href="/css/behind/side.css" rel="stylesheet" />
+    <link href="/css/Zonic.css" rel="stylesheet" />
 </head>
 <body style="">
 
-    <!--<script src="/js/Zonic.js"></script>
     <script src="/js/jquery-1.11.1.min.js"></script>
     <script src="/js/jquery.ui.widget.js"></script>
     <script src="/js/jquery.iframe-transport.js"></script>
-    <script src="/js/jquery.fileupload.js"></script>-->
+    <script src="/js/jquery.fileupload.js"></script>
 
     <div class="panel-body panel-border" style="background-color:white;min-height:430px;">
 
         <style>
-                * {
-                    margin: 0px;
-                    padding: 0px;
-                    border: 0px;
-                }
+            * {
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+            }
 
-                #content-editor-container {
-                    background-color: #efefef;
-                }
+            #content-editor-container {
+                background-color: #efefef;
+            }
 
-                .item-selected {
+            .item-selected {
+                color: rgb(0,122,204);
+                font-weight: 700;
+            }
+
+                .item-selected a {
                     color: rgb(0,122,204);
                     font-weight: 700;
                 }
 
-                    .item-selected a {
-                        color: rgb(0,122,204);
-                        font-weight: 700;
-                    }
+            .menu-item-link {
+                color: rgb(102,102,102);
+            }
 
-                .menu-item-link {
-                    color: rgb(102,102,102);
-                }
-
-                    .menu-item-link:hover {
-                        color: rgb(0,122,204);
-                    }
-
-                .list-item {
-                    cursor: pointer;
-                }
-
-                .list-item-selected {
+                .menu-item-link:hover {
                     color: rgb(0,122,204);
-                    cursor: pointer;
-                    background-color: #e6f3fb;
                 }
 
-                .list-item:hover {
-                    color: rgb(0,122,204);
-                    cursor: pointer;
-                    background-color: #e6f3fb;
+            .list-item {
+                cursor: pointer;
+            }
+
+            .list-item-selected {
+                color: rgb(0,122,204);
+                cursor: pointer;
+                background-color: #e6f3fb;
+            }
+
+            .list-item:hover {
+                color: rgb(0,122,204);
+                cursor: pointer;
+                background-color: #e6f3fb;
+            }
+
+            .list-item-icon-hover-show {
+                display: none;
+            }
+
+            .list-item:hover .list-item-icon-hover-show {
+                display: inline-block;
+            }
+
+            .menu-bar-item {
+            }
+
+                .menu-bar-item:hover {
+                    background-color: #d4e5f5;
                 }
 
-                .list-item-icon-hover-show {
-                    display: none;
-                }
+            .menu-bar-item-fc:hover {
+                color: rgb(0,122,204);
+                cursor: pointer;
+            }
 
-                .list-item:hover .list-item-icon-hover-show {
-                    display: inline-block;
-                }
+            .row {
+                cursor: pointer;
+            }
 
-                .menu-bar-item {
-                }
-
-                    .menu-bar-item:hover {
-                        background-color: #d4e5f5;
-                    }
-
-                .menu-bar-item-fc:hover {
-                    color: rgb(0,122,204);
-                    cursor: pointer;
-                }
-
-                .row {
-                    cursor: pointer;
-                }
-
-                    .row:hover > .row-inner {
-                        background-color: #d4e5f5;
-                        color: rgb(0,122,204);
-                    }
-
-                .row-selected > .row-inner {
+                .row:hover > .row-inner {
                     background-color: #d4e5f5;
                     color: rgb(0,122,204);
                 }
 
-                .filerow {
-                    cursor: pointer;
-                }
+            .row-selected > .row-inner {
+                background-color: #d4e5f5;
+                color: rgb(0,122,204);
+            }
 
-                    .filerow:hover {
-                        background-color: #d4e5f5;
-                        color: rgb(0,122,204);
-                    }
+            .filerow {
+                cursor: pointer;
+            }
 
-                .filerow-selected {
+                .filerow:hover {
                     background-color: #d4e5f5;
                     color: rgb(0,122,204);
                 }
 
-                .hover-fa {
-                    background-color: transparent;
+            .filerow-selected {
+                background-color: #d4e5f5;
+                color: rgb(0,122,204);
+            }
+
+            .hover-fa {
+                background-color: transparent;
+            }
+
+                .hover-fa:hover {
+                    background-color: #68e9fb;
+                    cursor: pointer;
+                    color: white;
                 }
 
-                    .hover-fa:hover {
-                        background-color: #68e9fb;
-                        cursor: pointer;
-                        color: white;
-                    }
+            .hover-white {
+                background-color: transparent;
+            }
 
-                .hover-white {
-                    background-color: transparent;
+                .hover-white:hover {
+                    background-color: white;
+                    cursor: pointer;
                 }
 
-                    .hover-white:hover {
-                        background-color: white;
-                        cursor: pointer;
-                    }
+            .hover-button {
+                background-color: #fafafa;
+            }
 
-                .hover-button {
+            .hover-input {
+                background-color: transparent;
+                padding-left: 4px;
+                cursor: auto;
+                color: rgb(102,102,102);
+            }
+
+                .hover-input:hover {
                     background-color: #fafafa;
+                    color: rgb(0,122,204);
                 }
 
-                .hover-input {
-                    background-color: transparent;
-                    padding-left: 4px;
-                    cursor: auto;
-                    color: rgb(102,102,102);
+            .tag {
+                margin-left: 5px;
+                margin-right: 5px;
+                width: auto;
+                float: left;
+                cursor: pointer;
+            }
+
+                .tag:last-child {
+                    clear: both;
                 }
 
-                    .hover-input:hover {
-                        background-color: #fafafa;
-                        color: rgb(0,122,204);
-                    }
+                .tag input {
+                    background-color: #d7e6f3;
+                    line-height: 20px;
+                    height: 20px;
+                    width: auto;
+                    border-width: 0px;
+                    margin: 0px;
+                    margin-top: -1px;
+                }
 
-                .tag {
+                .tag span {
+                    background-color: #d7e6f3;
+                    display: inline-block;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    width: auto;
                     margin-left: 5px;
                     margin-right: 5px;
-                    width: auto;
-                    float: left;
-                    cursor: pointer;
                 }
 
-                    .tag:last-child {
-                        clear: both;
-                    }
+            .file-tab {
+                background-color: #efefef;
+                color: black;
+                font-size: 14px;
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                border: 1px solid #e0e0e0;
+                cursor: pointer;
+            }
 
-                    .tag input {
-                        background-color: #d7e6f3;
-                        line-height: 20px;
-                        height: 20px;
-                        width: auto;
-                        border-width: 0px;
-                        margin: 0px;
-                        margin-top: -1px;
-                    }
-
-                    .tag span {
-                        background-color: #d7e6f3;
-                        display: inline-block;
-                        padding-left: 5px;
-                        padding-right: 5px;
-                        width: auto;
-                        margin-left: 5px;
-                        margin-right: 5px;
-                    }
-
-                .file-tab {
-                    background-color: #efefef;
-                    color: black;
-                    font-size: 14px;
-                    font-family: Verdana, Arial, Helvetica, sans-serif;
-                    font-weight: bold;
-                    border: 1px solid #e0e0e0;
-                    cursor: pointer;
-                }
-
-                    .file-tab:hover {
-                        background-color: white;
-                        border-color: white;
-                    }
-
-                .file-tab-selected {
+                .file-tab:hover {
                     background-color: white;
                     border-color: white;
                 }
 
-                .scroll-12::-webkit-scrollbar {
-                    width: 2px;
-                    height: 2px;
-                }
+            .file-tab-selected {
+                background-color: white;
+                border-color: white;
+            }
 
-                .scroll-1::-webkit-scrollbar {
-                    width: 5px;
-                    height: 5px;
-                }
+            .scroll-12::-webkit-scrollbar {
+                width: 2px;
+                height: 2px;
+            }
 
-                .scroll-1::-webkit-scrollbar-button, .scroll-12::-webkit-scrollbar-button {
-                    background-color: #efefef;
-                    height: 0px;
-                }
+            .scroll-1::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+            }
 
-                .scroll-1::-webkit-scrollbar-track, .scroll-12::-webkit-scrollbar-track {
-                    background: #efefef;
-                    height: 0px;
-                }
+            .scroll-1::-webkit-scrollbar-button, .scroll-12::-webkit-scrollbar-button {
+                background-color: #efefef;
+                height: 0px;
+            }
 
-                /*.scroll-1::-webkit-scrollbar-track-piece, .scroll-12::-webkit-scrollbar-track-piece {
+            .scroll-1::-webkit-scrollbar-track, .scroll-12::-webkit-scrollbar-track {
+                background: #efefef;
+                height: 0px;
+            }
+
+            /*.scroll-1::-webkit-scrollbar-track-piece, .scroll-12::-webkit-scrollbar-track-piece {
                 background: url(http://www.lyblog.net/wp/wp-content/themes/mine/img/stripes_tiny_08.png);
             }*/
 
-                .scroll-1::-webkit-scrollbar-thumb, .scroll-12::-webkit-scrollbar-thumb {
-                    background: rgb(127,127,127);
-                    border-radius: 4px;
-                }
+            .scroll-1::-webkit-scrollbar-thumb, .scroll-12::-webkit-scrollbar-thumb {
+                background: rgb(127,127,127);
+                border-radius: 4px;
+            }
 
-                .scroll-1::-webkit-scrollbar-corner, .scroll-12::-webkit-scrollbar-corner {
-                    background: rgb(127,127,127);
-                }
+            .scroll-1::-webkit-scrollbar-corner, .scroll-12::-webkit-scrollbar-corner {
+                background: rgb(127,127,127);
+            }
 
-                .scroll-1::-webkit-scrollbar-resizer, .scroll-12::-webkit-scrollbar-resizer {
-                    background: rgb(127,127,127);
-                }
+            .scroll-1::-webkit-scrollbar-resizer, .scroll-12::-webkit-scrollbar-resizer {
+                background: rgb(127,127,127);
+            }
         </style>
         <style>
             #dropzone {
@@ -350,32 +350,36 @@
     <div style="display:none;" class="main_userlist_add">
         <div class="form-group" style="margin-top:20px;margin-left:0px;">
             <div class="col-sm-10">
-                <div style="margin-top:10px;">
+                <div style="margin-top:5px;">
                     <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">卡片编码:</label>
                     <input type="text" name="cardno" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
                 </div>
-                <div style="margin-top:10px;">
+                <div style="margin-top:5px;">
                     <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">名称:</label>
                     <input type="text" name="name" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
                 </div>
-                <div style="margin-top:10px;">
+                <div style="margin-top:5px;">
                     <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">标题:</label>
                     <input type="text" name="title" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
                 </div>
-                <div style="margin-top:10px;">
-                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">图片:</label>
+                <div style="margin-top:5px;">
+                    <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">链接:</label>
+                    <input type="text" name="href" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;">
+                </div>
+                <div style="margin-top:5px;">
+                    <label class="col-sm-2 control-label" name="imagesource" style="height:30px;line-height:30px;display:inline-block;width:90px;">图片:</label>
                     <input type="text" name="imagesource" class="form-control input-sm" placeholder="" style="display:inline-block;width:265px;">
                     <input type="button" class="form-control input-sm uploadfile" value="图片上传" style="display:inline-block;width:90px;">
                 </div>
-                <div style="margin-top:10px;">
+                <div style="margin-top:5px;">
                     <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">描述:</label>
                     <textarea type="password" name="description" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;height:80px;"></textarea>
                 </div>
-                <div style="margin-top:10px;">
+                <div style="margin-top:5px;">
                     <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">备注:</label>
                     <textarea type="password" name="remark" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;height:80px;"></textarea>
                 </div>
-                <div style="margin-top:10px;">
+                <div style="margin-top:5px;">
                     <label class="col-sm-2 control-label" style="height:30px;line-height:30px;display:inline-block;width:90px;">附加数据:</label>
                     <textarea type="password" name="data" class="form-control input-sm" placeholder="" style="display:inline-block;width:360px;height:80px;"></textarea>
                 </div>
@@ -434,139 +438,140 @@
     <!--<script src="/wwwroot/js/ts/loader.js"></script>-->
     <script src="/js/ts/Config.js"></script>
     <script>
-        require(["Zonic.base", "box"], function (helper,box, xhr) {
-            box.Box.fetch("http://api.jxhuaxue.cn/cards", {
-                headers: { "request-host": "localhost" }
-            }).then(function (d) {
-                var list = new box.Box.Box("#list tbody");
-                list.html("");
-                var index = 0;
-                window.JSON.parse(d).data.forEach(function (t) {
-                    new box.Box.Box(
-                        "<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.name + "</td><td>" + t.title + "</td><td>" + t.no + "</td><td>" + t.href + "</td><td><button class=\"btn btn-turquoise\">修改</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo(list);
-                });
+        require(["Zonic.base", "box"], function (helper, box, xhr) {
+            var line = new box.Box.Box();
+
+            function refresh() {
+                box.Box.fetch("http://api.jxhuaxue.cn/cards", {
+                    headers: { "request-host": "localhost" }
+                }).then(function (d) {
+                    var list = new box.Box.Box("#list tbody");
+                    list.html("");
+                    var index = 0;
+                    window.JSON.parse(d).data.forEach(function (t) {
+                        var tr = new box.Box.Box(
+                            "<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.name + "</td><td>" + t.title + "</td><td>" + t.no + "</td><td>" + t.href + "</td><td><button class=\"btn btn-turquoise item-btn-modify\">修改</button><button class=\"btn btn-turquoise item-btn-delete\">删除</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo(list);
+                        tr.select(".item-btn-delete").click(function () {
+                            box.Box.fetch("http://api.jxhuaxue.cn/cards", {
+                                method: "delete",
+                                headers: { "request-host": "localhost" },
+                                data: { id: t.id }
+                            }).then(function () {
+                                refresh();
+                            }, function (e) {
+                                console.log(e);
+                            });
+                        });
+                        tr.select(".item-btn-modify").click(function () {
+                            box.Box.fetch("http://api.jxhuaxue.cn/cards", {
+                                method: "PATCH",
+                                headers: { "request-host": "localhost" },
+                                data: { id: t.id }
+                            }).then(function (d) {
+                                if (typeof d === "string") {
+                                    d = JSON.parse(d);
+                                }
+                                var layer = new box.Box.Layer();
+                                layer.initialize({ dragable: true, width: "580px", height: "550px", mode: "masking" })
+                                    .layout({ left: "30%", top: "10%" }).append(new box.Box.Box(".main_userlist_add").html()).render();
+                                layer.select("button.btn-cancel").on("click", function () {
+                                    layer.remove();
+                                });
+                                layer.deformJson(d.data);
+                                layer.select(".uploadfile").on("click", function () {
+                                    cardfile.find("input").fileupload({
+                                        url: "upload",
+                                        dataType: "json",
+                                        formData: {},
+                                        done: function (e, d) {
+                                            console.log(d.result);
+                                            var b = d.result;
+                                            if (b.result) {
+                                                layer.find("[name=imagesource]").value(b.urls[0]);
+                                                cardfile.remove();
+                                            } else {
+                                                alert("图片上传失败");
+                                            }
+                                            layer.find(".uploadfile").value("上传图片");
+                                        }, profressall: function () {
+                                            layer.find(".uploadfile").value("正在上传")
+                                        }
+                                    });
+                                    cardfile.find("input").click();
+                                });
+                                cardfile.append("body");
+                                layer.select("button.btn-added").html("修改").click(function () {
+                                    //var json=layer.formJson();
+                                    var data = layer.formJson();
+                                    data.id = t.id;
+                                    box.Box.fetch("http://api.jxhuaxue.cn/cards", {
+                                        method: "put",
+                                        headers: { "request-host": "localhost" },
+                                        data: data
+                                    }).then(function () {
+                                        layer.remove();
+                                        refresh();
+                                    }, function (e) {
+                                        console.log(e);
+                                    });
+                                });
+                            }, function (e) {
+                                console.log(e);
+                            });
+                        });
+                    });
                 }, function (d) {
                     console.error(d);
                 });//.send();
-        });
-    </script>
-    <script type="text/html">
-
-        (function () {
-        function initList() {
-        zonic.ajax("http://api.jxhuaxue.cn/cards", "get", null, function (d) {
-        var z = zonic("#userlist tbody");
-        z.empty();
-        var index = 0;
-        window.JSON.parse(d).forEach(function (t) {
-        zonic("<tr style='height:30px;'><td>" + (++index) + "</td><td>" + t.Title + "</td><td>" + t.CardNo + "</td><td>" + t.Name + "</td><td><button class=\"btn btn-turquoise\" onclick='window.modify(\"" + t.Id + "\",\"" + t.UserName + "\",this)'>修改</button></td></tr>").attr("zonic-data", JSON.stringify(t)).appendTo(z);
-        });
-
-        });
-        }
-        initList();
-        var cardfile = $("#card_fileploader");
-        zonic(".add_new_user").on("click", function () {
-        var self = this;
-        zonic(this).attr("disabled", "disabled");
-        var layer = zonic.ui.layer({ dragable: false,  width: "580px", height: "550px" }).layout({left:"30%",top:"10%"}).append(zonic(".main_userlist_add").html());
-        layer.find(".btn-added").text("添加");
-        layer.find(".btn-cancel").on("click", function () {
-        layer.remove();
-        zonic(".add_new_user").removeAttr("disabled");
-        });
-        layer.find(".uploadfile").on("click", function () {
-        cardfile.append("body");
-        cardfile.find("input").fileupload({
-        url: "upload",
-        dataType: "json",
-        formData: {},
-        done: function (e, d) {
-        console.log(d.result);
-        var b = d.result;
-        if (b.result) {
-        layer.find("[name=imagesource]").value(b.urls[0]);
-        cardfile.remove();
-        } else {
-        alert("图片上传失败");
-        }
-        layer.find(".uploadfile").value("上传图片");
-        }, profressall: function () {
-        layer.find(".uploadfile").value("正在上传")
-        }
-        });
-        cardfile.find("input").click();
-        });
-        layer.find(".btn-added").on("click", function (e) {
-        var obj = zonic.serialize(layer.find(".form-group").selected[0]);
-        if (!obj.cardno) {
-        alert("编码不能为空");
-        return;
-        }
-        zonic.ajax("http://api.jxhuaxue.cn/cards", "post", obj, function (d) {
-        d = typeof d == "string" ? window.JSON.parse(d) : d;
-        if (d.result) {
-        alert("添加成功");
-        initList();
-        layer.remove();
-        zonic(self).removeAttr("disabled");
-        }
-        });
-        });
+            };
+            refresh();
+            var cardfile = $("#card_fileploader");
+            new box.Box.Box("button.add_new_user").on("click", function () {
+                var layer = new box.Box.Layer();
+                layer.initialize({ dragable: true, width: "580px", height: "550px", mode: "masking" })
+                    .layout({ left: "30%", top: "10%" }).append(new box.Box.Box(".main_userlist_add").html()).render();
+                layer.select("button.btn-cancel").on("click", function () {
+                    layer.remove();
+                });
+                layer.select(".uploadfile").on("click", function () {
+                    cardfile.find("input").fileupload({
+                        url: "upload",
+                        dataType: "json",
+                        formData: {},
+                        done: function (e, d) {
+                            console.log(d.result);
+                            var b = d.result;
+                            if (b.result) {
+                                layer.find("[name=imagesource]").value(b.urls[0]);
+                                cardfile.remove();
+                            } else {
+                                alert("图片上传失败");
+                            }
+                            layer.find(".uploadfile").value("上传图片");
+                        }, profressall: function () {
+                            layer.find(".uploadfile").value("正在上传")
+                        }
+                    });
+                    cardfile.find("input").click();
+                });
+                cardfile.append("body");
+                layer.select("button.btn-added").click(function () {
+                    //var json=layer.formJson();
+                    box.Box.fetch("http://api.jxhuaxue.cn/cards", {
+                        method: "post",
+                        headers: { "request-host": "localhost" },
+                        data: layer.formJson()
+                    }).then(function () {
+                        layer.remove();
+                        refresh();
+                    }, function (e) {
+                        console.log(e);
+                    });
+                })
+                //layer.rule.style(layer,{display:"block"});
+            });
 
         });
-        window.modify = function (id, un, self) {
-        var layer = zonic.ui.layer({ dragable: false,  width: "40%", height: "520px" }).layout({ left: "30%", top: "10%" }).append(zonic(".main_userlist_add").html());
-        layer.find(".btn-cancel").on("click", function () {
-        layer.remove();
-        zonic(".add_new_user").removeAttr("disabled");
-        });
-        layer.find(".btn-added").text("修改");
-        var data = JSON.parse(zonic(self).parent().parent().attr("zonic-data"));
-        zonic.deserialize(layer.find(".form-group").selected[0], data);
-        //layer.find("[name=account]").value(un);
-        layer.find(".btn-added").on("click", function (e) {
-        var obj = zonic.serialize(layer.find(".form-group").selected[0]);
-        if (!obj.cardno) {
-        alert("编码不能为空");
-        return;
-        }
-        obj.Id = id;
-        zonic.ajax("http://api.jxhuaxue.cn/cards", "put", obj, function (d) {
-        d = typeof d == "string" ? window.JSON.parse(d) : d;
-        if (d.result) {
-        alert("修改成功");
-        initList();
-        layer.remove();
-        zonic(".add_new_user").removeAttr("disabled");
-        }
-        });
-        });
-        layer.find(".uploadfile").on("click", function () {
-        //zonic("#fileupload .uploader-formneedsclick").trigger("click");
-        cardfile.append("body");
-        cardfile.find("input").fileupload({
-        url: "upload",
-        dataType: "json",
-        formData: {},
-        done: function (e, d) {
-        console.log(d.result);
-        var b = d.result;
-        if (b.result) {
-        layer.find("[name=imagesource]").value(b.urls[0]);
-        cardfile.remove();
-        } else {
-        alert("图片上传失败");
-        }
-        layer.find(".uploadfile").value("上传图片");
-        }, profressall: function () {
-        layer.find(".uploadfile").value("正在上传")
-        }
-        });
-        cardfile.find("input").click();
-        });
-        }
-        })();
     </script>
 </body>
 </html>

@@ -134,6 +134,8 @@ export module zonic {
                     var property = style.item(i), val = style.getPropertyValue(property);
                     this.map.set(property, val);
                 }
+            } else if ((this.DOM instanceof HTMLDocument)) {
+                return this;
             } else if (this.DOM) {
                 return this.initialize(this.DOM);
             }
@@ -157,8 +159,17 @@ export module zonic {
         }
         apply(component) {
             //box.Box["css"](component, this.map);
+            if (typeof component === "string") {
+                component = StyleRule.parse(component);
+            }
             if (component instanceof box.Box) {
-                this.style(component, this.map);
+                this.DOM = component;
+                this.css(this.map);
+            } else if (component instanceof HTMLElement) {
+                this.DOM = new box.Box(component);
+                this.css(this.map);
+            } else if (component && this.DOM) {
+                this.css(component instanceof StyleRule? component.map:component);
             }
             return this;
         }
@@ -181,7 +192,7 @@ export module zonic {
             return window.getComputedStyle(elem, null);
         }
         css(prop: any, value?): any {
-            var me = this,cssProperty = function (prop, value) {
+            var me = this, cssProperty = function (prop, value) {
                 var p = prop;
                 if (prop === "float") {
                     p = this.style.cssFloat ? "cssFloat" : "styleFloat";
@@ -192,6 +203,10 @@ export module zonic {
                 }
                 var curElSty = this.currentStyle || me._getStyle(this), elSty = this.style;
                 p = me.parseProperty(p);
+                if (p.toLowerCase() === "zindex") {
+                    me.style(me.DOM, "z-index", value);
+                    return;
+                }
                 try {
                     if (p in curElSty) {
                         try {
@@ -229,25 +244,41 @@ export module zonic {
             };
             if (arguments.length === 1) {
                 if (typeof prop === "string") {
-                    return cssgetProperty.call(this.DOM.DOM, this.parseProperty(prop));
-                } else {
+                    return cssgetProperty.call(new box.Box(this.DOM).DOM, this.parseProperty(prop));
+                } else if (prop instanceof StylePropertyMap) {
+                    var dom = new box.Box(this.DOM).DOM;
+                    prop.forEach(function (v,index) {
+                        cssProperty.call(dom, v.key, v.value);
+                    });
+                }else {
                     for (var p in prop)
-                        cssProperty.call(this.DOM.DOM, p.trim(), prop[p]);
+                        cssProperty.call(new box.Box(this.DOM).DOM, p.trim(), prop[p]);
                 }
             } else if (arguments.length === 2) {
                 if (typeof prop === "string") {
-                    cssProperty.call(this.DOM.DOM, prop, value);
+                    cssProperty.call(new box.Box(this.DOM).DOM, prop, value);
                 } else if (typeof value === "function") {
-                    for (var p in prop)
-                        value.call(this.DOM.DOM, [p.trim(), prop[p]]);
+                    if (prop instanceof StylePropertyMap) {
+                        var dom = new box.Box(this.DOM).DOM;
+                        prop.forEach(function (v, index) {
+                            value.call(dom, v.key, v.value);
+                        });
+                    } else {
+
+                        for (var p in prop)
+                            value.call(new box.Box(this.DOM).DOM, [p.trim(), prop[p]]);
+                    }
                 }
             }
             return this;
         }
-        style(bom: box.Box, prop, value?) {
+        style(bom: any, prop, value?) {
+            if (!(bom instanceof box.Box)) {
+                bom = new box.Box(bom);
+            }
             //elSty.cssText += ";" + prop + ":" + value + ";";
             var style = bom.attr("style") || "";
-            if (arguments.length === 1) {
+            if (arguments.length === 2) {
                 if (typeof prop === "string") {
                     style += ";" + prop;
                 } else {
@@ -256,7 +287,7 @@ export module zonic {
                         c += p + ":" + prop[p] + ";";
                     style += ";" + c;
                 }
-            } else if (arguments.length === 2) {
+            } else if (arguments.length === 3) {
                 style += ";" + prop + ":" + value;
             }
             bom.attr("style", style);

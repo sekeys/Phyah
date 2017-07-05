@@ -38,7 +38,11 @@ namespace Phyah.EntityFramework.Services
 
         public int Delete(IOrderedQueryable<T> queryable) => Delete(Single(queryable));
 
-        public async Task<int> DeleteAsync(string id) => await DeleteAsync(await SingleAsync(id));
+        public async Task<int> DeleteAsync(string id)
+        {
+            var entity = await SingleAsync(id);
+            return await DeleteAsync(entity);
+        }
 
         public async Task<int> DeleteAsync(IQueryable<T> queryable) => await DeleteAsync(await SingleAsync(queryable));
 
@@ -229,23 +233,30 @@ namespace Phyah.EntityFramework.Services
 
         public void Update(T entity)
         {
-            if (Context.Entry<T>(entity).State == EntityState.Modified)
+            using (var conn = Context.Database.GetDbConnection())
             {
-                Context.SaveChanges();
-            }
-            else if (Context.Entry<T>(entity).State == EntityState.Detached)
-            {
-                try
+                if (conn.State == System.Data.ConnectionState.Closed)
                 {
-                    Context.Set<T>().Attach(entity);
-                    Context.Entry<T>(entity).State = EntityState.Modified;
+                    conn.Open();
                 }
-                catch (InvalidOperationException)
+                if (Context.Entry<T>(entity).State == EntityState.Modified)
                 {
-                    T old = Single(entity.Id);
-                    Context.Entry(old).CurrentValues.SetValues(entity);
+                    Context.SaveChanges();
                 }
-                Context.SaveChanges();
+                else if (Context.Entry<T>(entity).State == EntityState.Detached)
+                {
+                    try
+                    {
+                        Context.Set<T>().Attach(entity);
+                        Context.Entry<T>(entity).State = EntityState.Modified;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        T old = Single(entity.Id);
+                        Context.Entry(old).CurrentValues.SetValues(entity);
+                    }
+                    Context.SaveChanges();
+                }
             }
         }
 
@@ -264,23 +275,30 @@ namespace Phyah.EntityFramework.Services
 
         public async Task UpdateAsync(T entity)
         {
-            if (Context.Entry<T>(entity).State == EntityState.Modified)
+            using (var conn = Context.Database.GetDbConnection())
             {
-                await Context.SaveChangesAsync();
-            }
-            else if (Context.Entry<T>(entity).State == EntityState.Detached)
-            {
-                try
+                if (conn.State == System.Data.ConnectionState.Closed)
                 {
-                    Context.Set<T>().Attach(entity);
-                    Context.Entry<T>(entity).State = EntityState.Modified;
+                    conn.Open();
                 }
-                catch (InvalidOperationException)
+                if (Context.Entry<T>(entity).State == EntityState.Modified)
                 {
-                    T old = Single(entity.Id);
-                    Context.Entry(old).CurrentValues.SetValues(entity);
+                    await Context.SaveChangesAsync();
                 }
-                await Context.SaveChangesAsync();
+                else if (Context.Entry<T>(entity).State == EntityState.Detached)
+                {
+                    try
+                    {
+                        Context.Set<T>().Attach(entity);
+                        Context.Entry<T>(entity).State = EntityState.Modified;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        T old = Single(entity.Id);
+                        Context.Entry(old).CurrentValues.SetValues(entity);
+                    }
+                    await Context.SaveChangesAsync();
+                }
             }
         }
 
@@ -292,6 +310,7 @@ namespace Phyah.EntityFramework.Services
                 await NewAsync(entity);
             }
             model = Merge(model, entity);
+            Context.Entry<T>(model).State = EntityState.Modified;
             await UpdateAsync(model);
         }
 
@@ -301,7 +320,7 @@ namespace Phyah.EntityFramework.Services
         protected T Merge(T old, T newValue)
         {
             var newValueType = newValue.GetType();
-            foreach (var item in newValueType.GetTypeInfo().GetProperties(BindingFlags.Public))
+            foreach (var item in newValueType.GetTypeInfo().GetProperties())
             {
                 object value = item.GetValue(newValue);
                 if (value != null)
@@ -313,14 +332,30 @@ namespace Phyah.EntityFramework.Services
         }
         public int Delete(T entity)
         {
-            Context.Set<T>().Remove(entity);
-            return Context.SaveChanges();
+            using (var conn = Context.Database.GetDbConnection())
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+                Context.Set<T>().Remove(entity);
+                return Context.SaveChanges();
+            }
         }
 
         public async Task<int> DeleteAsync(T entity)
         {
-            Context.Set<T>().Remove(entity);
-            return await Context.SaveChangesAsync();
+            using (var conn = Context.Database.GetDbConnection())
+            {
+                if (conn.State == System.Data.ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+                Context.Set<T>().Attach(entity);
+                Context.Set<T>().Remove(entity);
+                //Context.Entry(entity).State = EntityState.Deleted;
+                return await Context.SaveChangesAsync();
+            }
         }
 
         public int Delete(IEntityConvert<T> entity) => Delete(entity.Convert());
